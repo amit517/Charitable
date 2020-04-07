@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
 
-
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".Activity.UserSignUpActivity">
-
+        tools:context=".Activity.OrganizationSignUpActivity">
 
         <ScrollView
             android:layout_width="match_parent"
@@ -20,59 +18,44 @@
                 android:layout_margin="15dp"
                 android:orientation="vertical"
                 android:gravity="center"
-                android:layout_gravity="center">
+                android:layout_gravity="center"
+                >
 
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Register as user"
+                    android:text="Register as Organization"
                     android:textSize="30sp"
                     android:textColor="@android:color/black"
-                    android:layout_marginBottom="50dp"
                     android:gravity="center"
                     android:fontFamily="serif"
-                    android:padding="5dp"/>
+                    android:padding="5dp"
+                    android:layout_marginBottom="50dp"
+                    />
 
 
 
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <EditText
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/firstNameET"
-                        android:hint="First Name"
-                        android:inputType="textCapWords"
-                        android:singleLine="true"
-                        android:layout_weight=".5"
-                        android:imeOptions="actionNext"
-                        />
-                    <EditText
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/lastNameET"
-                        android:hint="Last Name"
-                        android:inputType="textCapWords"
-                        android:singleLine="true"
-                        android:layout_weight=".5"
-                        android:imeOptions="actionNext"/>
-
-
-                </LinearLayout>
 
 
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/nidET"
-                    android:hint="NID number"
+                    android:id="@+id/orgNameET"
+                    android:hint="Organization Name"
+                    android:inputType="textCapWords"
                     android:singleLine="true"
-                    android:inputType="number"
                     android:imeOptions="actionNext"/>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/regET"
+                    android:hint="Organization Reg No."
+                    android:inputType="number"
+                    android:singleLine="true"
+                    android:imeOptions="actionNext"/>
+
 
                 <EditText
                     android:layout_width="match_parent"
@@ -84,12 +67,12 @@
                     android:imeOptions="actionNext"/>
 
                 <EditText
+                    android:id="@+id/addressET"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/addressET"
                     android:hint="Address"
-                    android:inputType="textCapSentences"
-                    android:imeOptions="actionNext"/>
+                    android:imeOptions="actionNext"
+                    android:inputType="textCapSentences" />
 
                 <EditText
                     android:layout_width="match_parent"

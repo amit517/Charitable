@@ -27,7 +27,7 @@
             <ImageView android:src="@drawable/bannar"
                 android:layout_width="wrap_content"
                 android:layout_height="72dp"
-                android:layout_marginBottom="50dp"
+                android:layout_marginBottom="40dp"
                 android:layout_gravity="center_horizontal" />
 
             <!--  Email Label -->
@@ -50,7 +50,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textEmailAddress"
-                    android:hint="Team ID"
+                    android:hint="Email"
                     android:textColor="@color/white"
                     />
             </com.google.android.material.textfield.TextInputLayout>
@@ -115,7 +115,7 @@
                 android:id="@+id/btn_login"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginBottom="24dp"
                 android:padding="12dp"
                 android:textAllCaps="false"
@@ -132,13 +132,32 @@
                     android:layout_weight="1"
                     android:textAlignment="center"
                     android:layout_gravity="center"
-                    android:text="Don't have an account? "/>
+                    android:text="Sign up as a user"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Sign Up"
                     android:padding="10dp"
                     android:id="@+id/signUpTV"
+                    android:textColor="@color/colorPrimary"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:layout_gravity="center"
+                    android:text="Sign up as an Organizer"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sign Up"
+                    android:padding="10dp"
+                    android:id="@+id/orgSignUpTV"
                     android:textColor="@color/colorPrimary"/>
             </LinearLayout>
 
