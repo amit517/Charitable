@@ -4,10 +4,15 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.view.View;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -17,12 +22,15 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.team.donation.MainActivity;
 import com.team.donation.R;
+import com.team.donation.Utils.GlobalVariables;
 import com.team.donation.databinding.ActivityLoginBinding;
 
 public class LoginActivity extends AppCompatActivity {
 
     private ActivityLoginBinding binding;
     private FirebaseAuth firebaseAuth;
+    private String userMode = "User";
+    private ProgressDialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,19 +39,21 @@ public class LoginActivity extends AppCompatActivity {
         init();
 
         if (firebaseAuth.getCurrentUser()!=null){
-            goToMain();
+            checkCurrentUser();
         }
+
+
 
         binding.btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String email = binding.etUserId.getText().toString();
                 String password = binding.etPassword.getText().toString();
-
+                progressDialog.show();
                 signInWithEmailPassword(email,password);
 
-                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                intent.setType("image/*");
+                /*Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                intent.setType("image/*");*/
             }
         });
 
@@ -62,10 +72,38 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        binding.userTypeRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                RadioButton rb = findViewById(checkedId);
+                userMode = rb.getText().toString();
+            }
+        });
+
+    }
+
+    private void checkCurrentUser() {
+
+        SharedPreferences sharedPreferences = getSharedPreferences(GlobalVariables.sharedPref, MODE_PRIVATE);
+        userMode = sharedPreferences.getString(GlobalVariables.userMode,"");
+        goToNewActivity(userMode);
+    }
+
+    private void saveData() {
+        SharedPreferences sharedPreferences = getSharedPreferences(GlobalVariables.sharedPref,MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        editor.putString(GlobalVariables.userMode,userMode);
+        editor.putString(GlobalVariables.userID,firebaseAuth.getCurrentUser().getUid());
+
+        editor.apply();
+
     }
 
     private void init() {
         firebaseAuth = FirebaseAuth.getInstance();
+        progressDialog = new ProgressDialog(LoginActivity.this);
+        progressDialog.setMessage("Please wait...");
     }
 
     private void signInWithEmailPassword(String email, String password) {
@@ -73,16 +111,44 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
-                    Toast.makeText(LoginActivity.this, "Sign In Successful", Toast.LENGTH_SHORT).show();
-                    goToMain();
+                    /*Toast.makeText(LoginActivity.this, "Sign In Successful", Toast.LENGTH_SHORT).show();
+                    goToMain();*/
+                    saveData();
+                    goToNewActivity(userMode);
+
+
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
             }
         });
+    }
+
+    private void goToNewActivity(String userMode) {
+
+        switch (userMode){
+            case "User":
+                startActivity(new Intent(LoginActivity.this,UserMainActivity.class));
+                LoginActivity.this.finish();
+                break;
+
+            case "Organization":
+                startActivity(new Intent(LoginActivity.this,OrganizerMainActivity.class));
+                LoginActivity.this.finish();
+                break;
+            case "Admin":
+                startActivity(new Intent(LoginActivity.this,AdminMainActivity.class));
+                LoginActivity.this.finish();
+                break;
+
+            default:
+                // Amar Mathay Bari Daw :P
+        }
+
     }
 
     private void goToMain() {

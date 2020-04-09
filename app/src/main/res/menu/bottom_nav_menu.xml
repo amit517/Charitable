@@ -1,0 +1,32 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/money"
+        android:icon="@drawable/ic_attach_money_black_24dp"
+        android:title="Money"
+        android:checked="true"
+        android:iconTint="@color/home"/>
+
+    <item
+        android:id="@+id/accessories"
+        android:icon="@drawable/ic_shopping"
+        android:title="Accessories"
+        android:iconTint="@color/logger"/>
+
+    <item
+        android:id="@+id/own_post"
+        android:icon="@drawable/ic_clipboard"
+        android:title="Own Post"
+        android:iconTint="@color/settings"/>
+
+    <item
+        android:id="@+id/user_profile"
+        android:icon="@drawable/ic_account_box_black_24dp"
+        android:title="Profile"
+        android:iconTint="@color/documents"/>
+    <item
+        android:id="@+id/about"
+        android:icon="@drawable/ic_info_black_24dp"
+        android:title="About"
+        android:iconTint="@android:color/holo_red_light"/>
+
+</menu>
