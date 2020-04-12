@@ -15,19 +15,46 @@ public class Money {
     private String postedDate;
     private boolean isEnabled;
     private String organizationName;
+    private String bkashNumber;
+    private String description;
 
     private List<Transection> transectionList;
     public Money() {
     }
 
-    public Money(String uniqueID, String userId, double askedAmount, String postedDate, boolean isEnabled, String organizationName, List<Transection> transectionList) {
+    public Money(String uniqueID, String userId, double askedAmount, String postedDate, boolean isEnabled, String organizationName, String bkashNumber, String description) {
         this.uniqueID = uniqueID;
         this.userId = userId;
         this.askedAmount = askedAmount;
         this.postedDate = postedDate;
         this.isEnabled = isEnabled;
         this.organizationName = organizationName;
-        this.transectionList = transectionList;
+        this.bkashNumber = bkashNumber;
+        this.description = description;
+    }
+
+    public Money(String userId, double askedAmount, String postedDate, boolean isEnabled, String organizationName, String bkashNumber, String description) {
+        this.userId = userId;
+        this.askedAmount = askedAmount;
+        this.postedDate = postedDate;
+        this.isEnabled = isEnabled;
+        this.organizationName = organizationName;
+        this.bkashNumber = bkashNumber;
+        this.description = description;
+    }
+    public void setDescription(String description) {
+        this.description = description;
+    }
+    public String getDescription() {
+        return description;
+    }
+
+    public String getBkashNumber() {
+        return bkashNumber;
+    }
+
+    public void setBkashNumber(String bkashNumber) {
+        this.bkashNumber = bkashNumber;
     }
 
     public String getUniqueID() {

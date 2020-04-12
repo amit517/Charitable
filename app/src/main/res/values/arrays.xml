@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="currency_array">
+        <item>"Select One"</item>
+        <item>Cloth</item>
+        <item>Food</item>
+        <item>Grocery</item>
+        <item>Book</item>
+        <item>Electronics</item>
+        <item>Health and Medicine</item>
+        <item>Furniture</item>
+    </string-array>
+</resources>
+
+
+
+

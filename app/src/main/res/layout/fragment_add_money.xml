@@ -1,19 +1,168 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <layout>
 
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".Fragment.AddMoneyFragment">
+        tools:context=".Fragment.AddMoneyFragment"
+        android:orientation="vertical"
+        >
 
-        <!-- TODO: Update blank fragment layout -->
-        <TextView
+
+
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/hello_blank_fragment" />
+            android:layout_height="match_parent">
 
-    </FrameLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginRight="30dp"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="8dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="5dp"
+                            android:text="Enter Amount :"
+                            android:textColor="@color/black_alfa_70"
+                            android:textSize="15sp" />
+
+
+                        <EditText
+                            android:id="@+id/money_amount"
+                            android:layout_width="match_parent"
+
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="-5dp"
+                            android:layout_marginTop="10dp"
+                            android:hint="Amount"
+                            android:padding="10dp"
+                            android:singleLine="true"
+                            android:inputType="numberDecimal"
+                            android:imeOptions="actionNext"/>
+                    </LinearLayout>
+
+
+                </androidx.cardview.widget.CardView>
+
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/card1"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginRight="30dp"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="8dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="5dp"
+                            android:text="Add Description :"
+                            android:textColor="@color/black_alfa_70"
+                            android:textSize="15sp" />
+
+
+                        <EditText
+                            android:id="@+id/money_description"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="-5dp"
+                            android:layout_marginTop="10dp"
+                            android:hint="Description"
+                            android:padding="10dp"
+                            android:inputType="textCapSentences"
+                            android:imeOptions="actionNext"
+                            />
+
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/card2"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginRight="30dp"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="8dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="5dp"
+                            android:text="Bkash Number"
+                            android:textColor="@color/black_alfa_70"
+                            android:textSize="15sp" />
+
+
+                        <EditText
+                            android:id="@+id/bkash_no"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="-5dp"
+                            android:layout_marginTop="10dp"
+                            android:hint="+88"
+                            android:padding="10dp"
+                            android:inputType="phone"
+                            android:singleLine="true"
+                            android:imeOptions="actionDone"/>
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+
+                <Button
+                    android:id="@+id/add_money_to_database"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/card3"
+                    android:layout_centerHorizontal="true"
+                    android:text="Add Request"
+                    android:textAllCaps="false"
+                    android:layout_marginTop="30dp"/>
+
+            </RelativeLayout>
+
+        </ScrollView>
+
+
+
+    </LinearLayout>
 
 </layout>

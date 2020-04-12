@@ -77,7 +77,7 @@ public class UserMainActivity extends AppCompatActivity {
 
         int count = getSupportFragmentManager().getBackStackEntryCount();
 
-        if (count == 0) {
+        if (count == 1) {
             super.onBackPressed();
             //additional code
 
