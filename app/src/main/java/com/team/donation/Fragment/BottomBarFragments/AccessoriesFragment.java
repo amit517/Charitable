@@ -62,7 +62,6 @@ public class AccessoriesFragment extends Fragment {
 
         init();
         configureRV();
-
         getAllacc();
 
         binding.addNew.setOnClickListener(new View.OnClickListener() {
@@ -77,9 +76,6 @@ public class AccessoriesFragment extends Fragment {
 
             }
         });
-
-
-
         return binding.getRoot();
     }
 
@@ -117,14 +113,11 @@ public class AccessoriesFragment extends Fragment {
     }
 
     private void init() {
-
         firebaseAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference();
         progressDialog = new ProgressDialog(context);
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Please wait...");
         accessoriesArrayList = new ArrayList<>();
-
-
     }
 }

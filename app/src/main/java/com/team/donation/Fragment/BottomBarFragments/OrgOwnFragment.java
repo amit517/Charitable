@@ -7,7 +7,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -32,7 +31,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.team.donation.Adapter.AccAdapter;
-import com.team.donation.Adapter.OwnAccessoriesAdapter;
 import com.team.donation.Adapter.OwnMoneyAdapter;
 import com.team.donation.Model.Accessories;
 import com.team.donation.Model.Money;
@@ -56,9 +54,7 @@ public class OrgOwnFragment extends Fragment implements AccAdapter.OnDeleteClick
     private ArrayList<Accessories> accessoriesArrayList;
     private ArrayList<Money> moneyArrayList;
     private OwnMoneyAdapter moneyAdapter;
-    private OwnAccessoriesAdapter accessoriesAdapter;
     private AccAdapter adapter;
-    private int currentPositon;
 
     //private AccessoriesAdapter adapter;
 
@@ -76,14 +72,11 @@ public class OrgOwnFragment extends Fragment implements AccAdapter.OnDeleteClick
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-
-
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_orag_own,container,false);
 
         init();
         configureRV();
         checkuser();
-
 
         userId = firebaseAuth.getCurrentUser().getUid();
 
@@ -111,7 +104,7 @@ public class OrgOwnFragment extends Fragment implements AccAdapter.OnDeleteClick
                 }
             });
 
-/*            Query moneyQuerary= databaseReference.child("Money").orderByChild("userId").equalTo(userId);
+            Query moneyQuerary= databaseReference.child("Money").orderByChild("userId").equalTo(userId);
             moneyQuerary.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -122,21 +115,43 @@ public class OrgOwnFragment extends Fragment implements AccAdapter.OnDeleteClick
                             Money money = data.getValue(Money.class);
                             moneyArrayList.add(money);
                         }
-                        Log.d("TAG", "onChildAdded: "+accessoriesArrayList.size());
-                        Log.d("TAG", "onChildAdded: "+accessoriesArrayList.get(0).getCreatorName());
+                        Log.d("TAG", "onChildAdded: "+moneyArrayList.size());
                     }
 
-                    //moneyAdapter.notifyDataSetChanged();
+                    moneyAdapter.notifyDataSetChanged();
                 }
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
 
                 }
-            });*/
+            });
 
         }
         else {
+
+            Query query= databaseReference.child("Accessories").orderByChild("userId").equalTo(userId);
+            query.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()){
+                        accessoriesArrayList.clear();
+                        for (DataSnapshot data : dataSnapshot.getChildren()){
+                            Accessories accessories = data.getValue(Accessories.class);
+                            accessoriesArrayList.add(accessories);
+                        }
+                        Log.d("TAG", "onChildAdded: "+accessoriesArrayList.size());
+                        Log.d("TAG", "onChildAdded: "+accessoriesArrayList.get(0).getCreatorName());
+                    }
+                    adapter.notifyDataSetChanged();
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
 
         }
 
@@ -147,19 +162,12 @@ public class OrgOwnFragment extends Fragment implements AccAdapter.OnDeleteClick
         moneyAdapter = new OwnMoneyAdapter(context,moneyArrayList);
         binding.moneyRV.setLayoutManager(new LinearLayoutManager(context));
         binding.moneyRV.setAdapter(moneyAdapter);
-        binding.moneyRV.setHasFixedSize(true);
 
         adapter= new AccAdapter(context,accessoriesArrayList,this);
         binding.accoriesRV.setLayoutManager(new LinearLayoutManager(getActivity()));
         binding.accoriesRV.setAdapter(adapter);
 
-
-        /*accessoriesAdapter= new OwnAccessoriesAdapter(context,accessoriesArrayList);
-        binding.accoriesRV.setLayoutManager(new LinearLayoutManager(getActivity()));
-        binding.accoriesRV.setAdapter(adapter);*/
     }
-
-
 
     private void checkuser() {
 
@@ -173,18 +181,14 @@ public class OrgOwnFragment extends Fragment implements AccAdapter.OnDeleteClick
             case "User":
             case "Admin":
 
-                /*binding.moneyTv.setVisibility(View.GONE);
-                binding.moneyRV.setVisibility(View.GONE);*/
-
+                binding.moneyTv.setVisibility(View.GONE);
+                binding.moneyRV.setVisibility(View.GONE);
                 break;
 
 
             default:
                 // Amar Mathay Bari Daw :P
         }
-
-
-
     }
 
     private void init() {
@@ -194,28 +198,13 @@ public class OrgOwnFragment extends Fragment implements AccAdapter.OnDeleteClick
         progressDialog = new ProgressDialog(context);
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Please wait...");
-
-
         accessoriesArrayList = new ArrayList<>();
         moneyArrayList = new ArrayList<>();
-
-
-
-
-
-
-
-
 
     }
 
     @Override
     public void deleteButtonclicked(int position) {
-
-
-        currentPositon = position;
-
-        Toast.makeText(context, "Clicked", Toast.LENGTH_SHORT).show();
 
         String key = accessoriesArrayList.get(position).getUniqueID();
 
