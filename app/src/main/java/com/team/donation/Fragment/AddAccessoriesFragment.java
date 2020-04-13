@@ -182,7 +182,7 @@ public class AddAccessoriesFragment extends Fragment {
 
                                                 @Override
                                                 public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                                                    progressDialog.dismiss();
                                                 }
                                             });
                                         }
@@ -194,11 +194,13 @@ public class AddAccessoriesFragment extends Fragment {
 
 
                     }else {
+                        progressDialog.dismiss();
                         Toast.makeText(context, "Please select profile image", Toast.LENGTH_SHORT).show();
                     }
 
                 }
                 else {
+                    progressDialog.dismiss();
                     Toast.makeText(context, "No network Available", Toast.LENGTH_SHORT).show();
                 }
 

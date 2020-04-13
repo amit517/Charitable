@@ -110,12 +110,13 @@ public class AddMoneyFragment extends Fragment {
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                            progressDialog.dismiss();
                         }
                     });
 
                 }
                 else {
+                    progressDialog.dismiss();
                     Toast.makeText(context, "No network Available", Toast.LENGTH_SHORT).show();
                 }
             }

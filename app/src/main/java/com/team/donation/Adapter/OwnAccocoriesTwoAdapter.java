@@ -1,14 +1,11 @@
 package com.team.donation.Adapter;
 
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,13 +23,11 @@ import java.util.ArrayList;
  * Created by Amit on 12,April,2020
  * kundu.amit517@gmail.com
  */
-
-public class OwnAccessoriesAdapter extends RecyclerView.Adapter<OwnAccessoriesAdapter.ViewHolder> {
-
+public class OwnAccocoriesTwoAdapter extends RecyclerView.Adapter<OwnAccocoriesTwoAdapter.ViewHolder> {
     private Context context;
     private ArrayList<Accessories> accessoriesArrayList;
 
-    public OwnAccessoriesAdapter(Context context, ArrayList<Accessories> accessoriesArrayList) {
+    public OwnAccocoriesTwoAdapter(Context context, ArrayList<Accessories> accessoriesArrayList) {
         this.context = context;
         this.accessoriesArrayList = accessoriesArrayList;
     }
@@ -40,24 +35,19 @@ public class OwnAccessoriesAdapter extends RecyclerView.Adapter<OwnAccessoriesAd
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.layout_accessories,parent,false);
-
+        View view = LayoutInflater.from(context).inflate(R.layout.layout_own_accecories,parent,false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-
-        final Accessories currentAcc = accessoriesArrayList.get(position);
+        /*final Accessories currentAcc = accessoriesArrayList.get(position);
         holder.postType.setText(currentAcc.getType());
         holder.productTitle.setText(currentAcc.getProductTitle());
         holder.creatorName.setText(currentAcc.getCreatorName());
         holder.date.setText(currentAcc.getPostedDate());
         holder.type.setText(currentAcc.getProductType());
         holder.productDescription.setText(currentAcc.getProductDescription());
-        holder.phoneNumber.setText(currentAcc.getCreatorPhoneNo());
-        holder.locationTv.setText(currentAcc.getCreatorAddress());
-
         String  img_url = currentAcc.getProductImageLink();
         Log.d("TAG", "onBindViewHolder: "+img_url);
 
@@ -66,22 +56,17 @@ public class OwnAccessoriesAdapter extends RecyclerView.Adapter<OwnAccessoriesAd
                 .load(img_url)
                 .resize(400,400)
                 .into(holder.accProductimage);
-
-        holder.callBtn.setOnClickListener(new View.OnClickListener() {
+        
+        holder.deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                if (currentAcc.getCreatorPhoneNo()!=null){
-                    String number = "tel:"+ currentAcc.getCreatorPhoneNo();
-                    Intent call = new Intent (Intent.ACTION_DIAL, Uri.parse(number));
-                    context.startActivity(call);
-                }else{
-                    Toast.makeText(context, "Number is not available", Toast.LENGTH_SHORT).show();
-                }
-
+                Toast.makeText(context, "Clicked", Toast.LENGTH_SHORT).show();
             }
-        });
+        });*/
 
+        Accessories currentAccecories = accessoriesArrayList.get(position);
+
+        holder.test.setText(currentAccecories.getProductDescription());
     }
 
     @Override
@@ -91,24 +76,25 @@ public class OwnAccessoriesAdapter extends RecyclerView.Adapter<OwnAccessoriesAd
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView postType,productTitle,date,creatorName,type,productDescription,phoneNumber,locationTv;
-        ImageButton callBtn;
-        ImageView accProductimage;
+        /*TextView postType,productTitle,date,creatorName,type,productDescription;
+        Button deleteBtn;
+        ImageView accProductimage;*/
+
+        TextView test;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            /*postType = itemView.findViewById(R.id.postType1);
+            productTitle = itemView.findViewById(R.id.productTitle1);
+            creatorName = itemView.findViewById(R.id.creatorName1);
+            date = itemView.findViewById(R.id.date1);
+            type = itemView.findViewById(R.id.type1);
+            productDescription = itemView.findViewById(R.id.productDescription1);
+            accProductimage = itemView.findViewById(R.id.accProductimage1);
+            deleteBtn = itemView.findViewById(R.id.acc_delete_post);*/
 
-            postType = itemView.findViewById(R.id.postType);
-            productTitle = itemView.findViewById(R.id.productTitle);
-            creatorName = itemView.findViewById(R.id.creatorName);
-            date = itemView.findViewById(R.id.date);
-            type = itemView.findViewById(R.id.type);
-            productDescription = itemView.findViewById(R.id.productDescription);
-            phoneNumber = itemView.findViewById(R.id.phoneNumber);
-            locationTv = itemView.findViewById(R.id.locationTv);
-            accProductimage = itemView.findViewById(R.id.accProductimage);
-            callBtn = itemView.findViewById(R.id.callBtn);
-
+            //test = itemView.findViewById(R.id.productDescription1);
+            
         }
     }
 }
