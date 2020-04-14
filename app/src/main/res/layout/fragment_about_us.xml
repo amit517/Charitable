@@ -1,18 +1,144 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#2D3142"
         tools:context=".Fragment.BottomBarFragments.AboutUsFragment">
 
-        <!-- TODO: Update blank fragment layout -->
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/hello_blank_fragment" />
+            android:layout_gravity="fill"
+            android:fillViewport="false"
+            android:forceDarkAllowed="false"
+            android:orientation="vertical">
 
-    </FrameLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="20sp"
+                android:layout_marginRight="30dp"
+                android:text="Bangladesh is one of the most disaster prone countries of South Asia. Hence in case of such natural calamities, there are many people who are poor and need help. This is an Android application designed for the collection of funds and donations in order to help orphans and other poor and needy people. This very application eliminates the need to visit to visit organisations or orphans in person in order to help them."
+                android:textColor="@color/white"
+                android:textDirection="firstStrong"
+                android:textSize="22dp"
+                android:gravity="center"
+                android:fontFamily="@font/one"
+
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="20sp"
+                android:layout_marginRight="30dp"
+                >
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_email_black_24dp"
+                    android:backgroundTint="@color/white"
+                    android:background="@color/white"
+                    android:id="@+id/email"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="charitable321@gmail.com"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="22sp"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:textColor="@color/white"
+                    android:textIsSelectable="true"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="20sp"
+                android:layout_marginRight="30dp"
+                >
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_local_phone_black_24dp"
+                    android:backgroundTint="@color/white"
+                    android:background="@color/white"
+                    android:id="@+id/phone"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="01832706402"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="22sp"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:textColor="@color/white"
+
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="20sp"
+                android:layout_marginRight="30dp"
+                >
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_location_city_black_24dp"
+                    android:backgroundTint="@color/white"
+                    android:background="@color/white"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Dhaka,Banglaesh"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="22sp"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:textColor="@color/white"
+                    android:textIsSelectable="true"/>
+
+            </LinearLayout>
+
+
+            <Button
+                android:id="@+id/support"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Support US"
+                app:icon="@drawable/ic_heart"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+                android:backgroundTint="@color/white"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+
+                />
+
+        </LinearLayout>
+
+
+
+    </ScrollView>
 
 </layout>
 

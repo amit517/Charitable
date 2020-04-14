@@ -27,6 +27,6 @@
         android:id="@+id/about"
         android:icon="@drawable/ic_info_black_24dp"
         android:title="About"
-        android:iconTint="@android:color/holo_red_light"/>
+        android:iconTint="@color/colorPrimary"/>
 
 </menu>

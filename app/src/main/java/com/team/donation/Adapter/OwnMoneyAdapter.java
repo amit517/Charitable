@@ -1,6 +1,7 @@
 package com.team.donation.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.team.donation.Activity.SeeDonationActivity;
 import com.team.donation.Model.Money;
 import com.team.donation.R;
 
@@ -41,7 +43,7 @@ public class OwnMoneyAdapter extends RecyclerView.Adapter<OwnMoneyAdapter.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         
         Money money = moneyArrayList.get(position);
         String amount = String.valueOf(money.getAskedAmount());
@@ -51,7 +53,11 @@ public class OwnMoneyAdapter extends RecyclerView.Adapter<OwnMoneyAdapter.ViewHo
         holder.seeAllDonation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "vclick", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context, "vclick", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(context, SeeDonationActivity.class);
+                intent.putExtra("token",moneyArrayList.get(position).getUniqueID());
+                context.startActivity(intent);
+
             }
         });
         

@@ -6,6 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import android.app.ProgressDialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -49,6 +52,20 @@ public class DonateMoneyActivity extends AppCompatActivity {
         init();
         getMoneyObject();
 
+
+        binding.copy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clip = ClipData.newPlainText("label", binding.sendNumber.getText().toString());
+                if (clipboard == null || clip == null) return;
+                clipboard.setPrimaryClip(clip);
+                Toast.makeText(DonateMoneyActivity.this, "Number Copied", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+
         binding.addMoneyToDatabase.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,7 +74,7 @@ public class DonateMoneyActivity extends AppCompatActivity {
                 if (money.getAskedAmount() >=amount){ // Amount is lower or equal
                     if (NetChecker.isNetworkAvailable(DonateMoneyActivity.this)){
                         progressDialog.show();
-                        userId = firebaseAuth.getCurrentUser().getUid();
+                        //userId = firebaseAuth.getCurrentUser().getUid();
                         DatabaseReference reference = databaseReference.child("Transaction");
                         String uniqueId = reference.push().getKey();
                         String date = DateTimeHelper.getDate();
@@ -176,5 +193,6 @@ public class DonateMoneyActivity extends AppCompatActivity {
     private void getMoneyObject() {
         Intent intent = getIntent();
         money = intent.getParcelableExtra("money");
+        binding.sendNumber.setText(money.getBkashNumber());
     }
 }

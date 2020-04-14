@@ -59,6 +59,7 @@ public class AccAdapter extends RecyclerView.Adapter<AccAdapter.ViewHolder> {
             });
 
         String  img_url = currentAccecoris.getProductImageLink();
+        //String  img_url = "https://image.shutterstock.com/image-photo/mountains-during-sunset-beautiful-natural-600w-407021107.jpg";
         Log.d("TAG", "onBindViewHolder: "+img_url);
 
         Picasso

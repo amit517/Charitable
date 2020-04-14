@@ -60,6 +60,7 @@ public class AccessoriesAdapter extends RecyclerView.Adapter<AccessoriesAdapter.
         holder.locationTv.setText(currentAcc.getCreatorAddress());
 
         String  img_url = currentAcc.getProductImageLink();
+        //String  img_url = "https://image.shutterstock.com/image-photo/mountains-during-sunset-beautiful-natural-600w-407021107.jpg";
         Log.d("TAG", "onBindViewHolder: "+img_url);
 
         Picasso

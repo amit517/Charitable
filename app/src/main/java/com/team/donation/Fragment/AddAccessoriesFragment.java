@@ -195,7 +195,7 @@ public class AddAccessoriesFragment extends Fragment {
 
                     }else {
                         progressDialog.dismiss();
-                        Toast.makeText(context, "Please select profile image", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Please select Product image", Toast.LENGTH_SHORT).show();
                     }
 
                 }
