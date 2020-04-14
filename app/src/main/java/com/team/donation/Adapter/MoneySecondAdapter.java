@@ -1,6 +1,7 @@
 package com.team.donation.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.team.donation.Activity.DonateMoneyActivity;
 import com.team.donation.Model.Money;
 import com.team.donation.R;
 
@@ -39,16 +41,20 @@ public class MoneySecondAdapter extends RecyclerView.Adapter<MoneySecondAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Money money = moneyArrayList.get(position);
+        final Money money = moneyArrayList.get(position);
         String amount = String.valueOf(money.getAskedAmount());
-                
+
         holder.askedAmmount.setText(amount);
         holder.dateMoney.setText(money.getPostedDate());
         holder.post_creator.setText(money.getOrganizationName());
+        holder.description.setText(money.getDescription());
         holder.donateNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "Clicked", Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(context, DonateMoneyActivity.class);
+                intent.putExtra("money",money);
+                context.startActivity(intent);
             }
         });
     }
@@ -60,7 +66,7 @@ public class MoneySecondAdapter extends RecyclerView.Adapter<MoneySecondAdapter.
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView askedAmmount,post_creator,dateMoney;
+        TextView askedAmmount,post_creator,dateMoney,description;
         Button donateNow;
         
         public ViewHolder(@NonNull View itemView) {
@@ -70,7 +76,19 @@ public class MoneySecondAdapter extends RecyclerView.Adapter<MoneySecondAdapter.
             post_creator = itemView.findViewById(R.id.post_creator);
             dateMoney = itemView.findViewById(R.id.dateMoney);
             donateNow = itemView.findViewById(R.id.donateNow);
-            
+            description = itemView.findViewById(R.id.description);
+
         }
+    }
+
+    public void clear() {
+        moneyArrayList.clear();
+        notifyDataSetChanged();
+    }
+
+    // Add a list of items -- change to type used
+    public void addAll(ArrayList<Money> list) {
+        moneyArrayList.addAll(list);
+        notifyDataSetChanged();
     }
 }

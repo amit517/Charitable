@@ -95,6 +95,7 @@ public class OrgOwnFragment extends Fragment implements AccAdapter.OnDeleteClick
                         Log.d("TAG", "onChildAdded: "+accessoriesArrayList.get(0).getCreatorName());
                     }
                     adapter.notifyDataSetChanged();
+                    binding.animationView.setVisibility(View.GONE);
 
                 }
 
@@ -119,6 +120,7 @@ public class OrgOwnFragment extends Fragment implements AccAdapter.OnDeleteClick
                     }
 
                     moneyAdapter.notifyDataSetChanged();
+                    binding.animationView.setVisibility(View.GONE);
                 }
 
                 @Override
@@ -144,6 +146,7 @@ public class OrgOwnFragment extends Fragment implements AccAdapter.OnDeleteClick
                         Log.d("TAG", "onChildAdded: "+accessoriesArrayList.get(0).getCreatorName());
                     }
                     adapter.notifyDataSetChanged();
+                    binding.animationView.setVisibility(View.GONE);
 
                 }
 

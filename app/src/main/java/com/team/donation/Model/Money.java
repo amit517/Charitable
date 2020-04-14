@@ -1,5 +1,8 @@
 package com.team.donation.Model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,7 +10,7 @@ import java.util.List;
  * Created by Amit on 08,April,2020
  * kundu.amit517@gmail.com
  */
-public class Money {
+public class Money implements Parcelable {
 
     private String uniqueID;
     private String userId;
@@ -18,8 +21,18 @@ public class Money {
     private String bkashNumber;
     private String description;
 
-    private List<Transection> transectionList;
     public Money() {
+    }
+
+
+    public Money(String userId, double askedAmount, String postedDate, boolean isEnabled, String organizationName, String bkashNumber, String description) {
+        this.userId = userId;
+        this.askedAmount = askedAmount;
+        this.postedDate = postedDate;
+        this.isEnabled = isEnabled;
+        this.organizationName = organizationName;
+        this.bkashNumber = bkashNumber;
+        this.description = description;
     }
 
     public Money(String uniqueID, String userId, double askedAmount, String postedDate, boolean isEnabled, String organizationName, String bkashNumber, String description) {
@@ -33,29 +46,28 @@ public class Money {
         this.description = description;
     }
 
-    public Money(String userId, double askedAmount, String postedDate, boolean isEnabled, String organizationName, String bkashNumber, String description) {
-        this.userId = userId;
-        this.askedAmount = askedAmount;
-        this.postedDate = postedDate;
-        this.isEnabled = isEnabled;
-        this.organizationName = organizationName;
-        this.bkashNumber = bkashNumber;
-        this.description = description;
-    }
-    public void setDescription(String description) {
-        this.description = description;
-    }
-    public String getDescription() {
-        return description;
+    protected Money(Parcel in) {
+        uniqueID = in.readString();
+        userId = in.readString();
+        askedAmount = in.readDouble();
+        postedDate = in.readString();
+        isEnabled = in.readByte() != 0;
+        organizationName = in.readString();
+        bkashNumber = in.readString();
+        description = in.readString();
     }
 
-    public String getBkashNumber() {
-        return bkashNumber;
-    }
+    public static final Creator<Money> CREATOR = new Creator<Money>() {
+        @Override
+        public Money createFromParcel(Parcel in) {
+            return new Money(in);
+        }
 
-    public void setBkashNumber(String bkashNumber) {
-        this.bkashNumber = bkashNumber;
-    }
+        @Override
+        public Money[] newArray(int size) {
+            return new Money[size];
+        }
+    };
 
     public String getUniqueID() {
         return uniqueID;
@@ -105,11 +117,36 @@ public class Money {
         this.organizationName = organizationName;
     }
 
-    public List<Transection> getTransectionList() {
-        return transectionList;
+    public String getBkashNumber() {
+        return bkashNumber;
     }
 
-    public void setTransectionList(List<Transection> transectionList) {
-        this.transectionList = transectionList;
+    public void setBkashNumber(String bkashNumber) {
+        this.bkashNumber = bkashNumber;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(uniqueID);
+        dest.writeString(userId);
+        dest.writeDouble(askedAmount);
+        dest.writeString(postedDate);
+        dest.writeByte((byte) (isEnabled ? 1 : 0));
+        dest.writeString(organizationName);
+        dest.writeString(bkashNumber);
+        dest.writeString(description);
     }
 }

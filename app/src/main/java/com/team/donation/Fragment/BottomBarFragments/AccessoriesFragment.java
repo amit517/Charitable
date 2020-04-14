@@ -94,6 +94,7 @@ public class AccessoriesFragment extends Fragment {
 
                     }
                     adapter.notifyDataSetChanged();
+                    binding.animationView.setVisibility(View.GONE);
                 }
             }
 

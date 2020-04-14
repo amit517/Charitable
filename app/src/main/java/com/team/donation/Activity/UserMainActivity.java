@@ -31,7 +31,6 @@ public class UserMainActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this,R.layout.activity_user_main);
 
 
-
         binding.bottomNavBar.addBubbleListener(new OnBubbleClickListener() {
             @Override
             public void onBubbleClick(int i) {

@@ -11,6 +11,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,6 +32,7 @@ import com.team.donation.Adapter.MoneySecondAdapter;
 import com.team.donation.Fragment.AddMoneyFragment;
 import com.team.donation.Model.Accessories;
 import com.team.donation.Model.Money;
+import com.team.donation.Model.Transection;
 import com.team.donation.R;
 import com.team.donation.Utils.GlobalVariables;
 import com.team.donation.databinding.FragmentMoneyBinding;
@@ -68,10 +70,13 @@ public class MoneyFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_money,container,false);
 
+        binding.animationView.setAnimation("19134-loading.json");
+        binding.animationView.loop(true);
+        binding.animationView.playAnimation();
         init();
 
         checkuser();
-       // configureRV();
+        configureRV();
 
         getAllmoney();
         binding.addNew.setOnClickListener(new View.OnClickListener() {
@@ -104,15 +109,21 @@ public class MoneyFragment extends Fragment {
                     moneyArrayList.clear();
                     for (DataSnapshot data:dataSnapshot.getChildren()
                     ) {
+
+                        data.getChildren().equals(Transection.class);
+
                         Money money = data.getValue(Money.class);
-                        moneyArrayList.add(money);
+
+                        if (money.isEnabled()){
+                            moneyArrayList.add(money);
+                        }
+                        Log.d("TAG", "onDataChange: "+dataSnapshot);
 
                     }
                     Log.d("TAG", "onDataChange: "+moneyArrayList.size());
-                    //adapter.notifyDataSetChanged();
-                    adapter = new MoneySecondAdapter(context,moneyArrayList);
-                    binding.moneyRV.setLayoutManager(new LinearLayoutManager(context));
-                    binding.moneyRV.setAdapter(adapter);
+                    adapter.notifyDataSetChanged();
+                    binding.animationView.setVisibility(View.GONE);
+
 
                 }
             }
@@ -125,13 +136,13 @@ public class MoneyFragment extends Fragment {
 
     }
 
- /*   private void configureRV() {
+    private void configureRV() {
 
         adapter = new MoneySecondAdapter(context,moneyArrayList);
         binding.moneyRV.setLayoutManager(new LinearLayoutManager(context));
         binding.moneyRV.setAdapter(adapter);
 
-    }*/
+    }
 
     private void init() {
 

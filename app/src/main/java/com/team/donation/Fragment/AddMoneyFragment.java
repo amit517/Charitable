@@ -30,10 +30,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.team.donation.Activity.UserSignUpActivity;
 import com.team.donation.Model.Money;
+import com.team.donation.Model.Transection;
 import com.team.donation.R;
 import com.team.donation.Utils.DateTimeHelper;
 import com.team.donation.Utils.NetChecker;
 import com.team.donation.databinding.FragmentAddMoneyBinding;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -88,6 +91,8 @@ public class AddMoneyFragment extends Fragment {
                                         String postedDate = DateTimeHelper.getDate();
                                         boolean status = true;
                                         String orgName = snapshot.getValue()+"";
+
+                                        ArrayList<Transection> transectionArrayList =new ArrayList<>();
 
                                         Money money = new Money(userId,amount,postedDate,status,orgName,bkahsNo,description);
                                         storeTodatabse(money);
