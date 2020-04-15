@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -81,84 +82,95 @@ public class OrgOwnFragment extends Fragment implements AccAdapter.OnDeleteClick
         userId = firebaseAuth.getCurrentUser().getUid();
 
         if (userMode.equals("Organization")){
-            Query query= databaseReference.child("Accessories").orderByChild("userId").equalTo(userId);
-            query.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    if (dataSnapshot.exists()){
-                        accessoriesArrayList.clear();
-                        for (DataSnapshot data : dataSnapshot.getChildren()){
-                            Accessories accessories = data.getValue(Accessories.class);
-                            accessoriesArrayList.add(accessories);
-                        }
-                        Log.d("TAG", "onChildAdded: "+accessoriesArrayList.size());
-                        Log.d("TAG", "onChildAdded: "+accessoriesArrayList.get(0).getCreatorName());
-                    }
-                    adapter.notifyDataSetChanged();
-                    binding.animationView.setVisibility(View.GONE);
-
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
-
-            Query moneyQuerary= databaseReference.child("Money").orderByChild("userId").equalTo(userId);
-            moneyQuerary.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    if (dataSnapshot.exists()){
-                        moneyArrayList.clear();
-
-                        for (DataSnapshot data : dataSnapshot.getChildren()){
-                            Money money = data.getValue(Money.class);
-                            moneyArrayList.add(money);
-                        }
-                        Log.d("TAG", "onChildAdded: "+moneyArrayList.size());
-                    }
-
-                    moneyAdapter.notifyDataSetChanged();
-                    binding.animationView.setVisibility(View.GONE);
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
-
+            orgAccecories();
+            orgMoney();
         }
         else {
-
-            Query query= databaseReference.child("Accessories").orderByChild("userId").equalTo(userId);
-            query.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    if (dataSnapshot.exists()){
-                        accessoriesArrayList.clear();
-                        for (DataSnapshot data : dataSnapshot.getChildren()){
-                            Accessories accessories = data.getValue(Accessories.class);
-                            accessoriesArrayList.add(accessories);
-                        }
-                        Log.d("TAG", "onChildAdded: "+accessoriesArrayList.size());
-                        Log.d("TAG", "onChildAdded: "+accessoriesArrayList.get(0).getCreatorName());
-                    }
-                    adapter.notifyDataSetChanged();
-                    binding.animationView.setVisibility(View.GONE);
-
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
-
+            userMoney();
         }
 
         return binding.getRoot();
+    }
+
+
+    private void userMoney() {
+        Query query= databaseReference.child("Accessories").orderByChild("userId").equalTo(userId);
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+                    accessoriesArrayList.clear();
+                    for (DataSnapshot data : dataSnapshot.getChildren()){
+                        Accessories accessories = data.getValue(Accessories.class);
+                        accessoriesArrayList.add(accessories);
+                    }
+                    Log.d("TAG", "onChildAdded: "+accessoriesArrayList.size());
+                    Log.d("TAG", "onChildAdded: "+accessoriesArrayList.get(0).getCreatorName());
+                }
+                adapter.notifyDataSetChanged();
+                binding.animationView.setVisibility(View.GONE);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void orgMoney() {
+        Query moneyQuerary= databaseReference.child("Money").orderByChild("userId").equalTo(userId);
+        moneyQuerary.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+                    moneyArrayList.clear();
+
+                    for (DataSnapshot data : dataSnapshot.getChildren()){
+                        Money money = data.getValue(Money.class);
+                        moneyArrayList.add(money);
+                    }
+                    Log.d("TAG", "onChildAdded: "+moneyArrayList.size());
+                }
+
+                moneyAdapter.notifyDataSetChanged();
+                binding.animationView.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void orgAccecories() {
+
+        Query query= databaseReference.child("Accessories").orderByChild("userId").equalTo(userId);
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+                    accessoriesArrayList.clear();
+                    for (DataSnapshot data : dataSnapshot.getChildren()){
+                        Accessories accessories = data.getValue(Accessories.class);
+                        accessoriesArrayList.add(accessories);
+                    }
+                    Log.d("TAG", "onChildAdded: "+accessoriesArrayList.size());
+                    Log.d("TAG", "onChildAdded: "+accessoriesArrayList.get(0).getCreatorName());
+                }
+                adapter.notifyDataSetChanged();
+                binding.animationView.setVisibility(View.GONE);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
     private void configureRV() {
@@ -207,7 +219,7 @@ public class OrgOwnFragment extends Fragment implements AccAdapter.OnDeleteClick
     }
 
     @Override
-    public void deleteButtonclicked(int position) {
+    public void deleteButtonclicked(final int position) {
 
         String key = accessoriesArrayList.get(position).getUniqueID();
 
@@ -221,15 +233,8 @@ public class OrgOwnFragment extends Fragment implements AccAdapter.OnDeleteClick
                     builder.setMessage("Successfully Deleted. Thanks for your collaboration");
                     builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-
-                            Fragment fragment = new OrgOwnFragment();
-                            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                            fragmentTransaction.replace(R.id.frame_layout, fragment);
-                            fragmentTransaction.addToBackStack(null);
-                            fragmentTransaction.commit();
-
-
+                            adapter.clear(position);
+                            adapter.notifyDataSetChanged();
                         }
                     })
                             .setCancelable(false);

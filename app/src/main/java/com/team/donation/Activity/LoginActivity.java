@@ -23,6 +23,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.team.donation.MainActivity;
 import com.team.donation.R;
 import com.team.donation.Utils.GlobalVariables;
+import com.team.donation.Utils.NetChecker;
 import com.team.donation.databinding.ActivityLoginBinding;
 
 public class LoginActivity extends AppCompatActivity {
@@ -42,18 +43,19 @@ public class LoginActivity extends AppCompatActivity {
             checkCurrentUser();
         }
 
-
-
         binding.btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String email = binding.etUserId.getText().toString();
-                String password = binding.etPassword.getText().toString();
-                progressDialog.show();
-                signInWithEmailPassword(email,password);
-
-                /*Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                intent.setType("image/*");*/
+                if (NetChecker.isNetworkAvailable(LoginActivity.this)){
+                    String email = binding.etUserId.getText().toString();
+                    String password = binding.etPassword.getText().toString();
+                    progressDialog.show();
+                    signInWithEmailPassword(email,password);
+                }
+                
+                else {
+                    Toast.makeText(LoginActivity.this, "Please check you internet!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

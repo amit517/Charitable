@@ -92,4 +92,10 @@ public class AccAdapter extends RecyclerView.Adapter<AccAdapter.ViewHolder> {
     public interface OnDeleteClickListener {
         void deleteButtonclicked(int position);
     }
+
+    public void clear(int position) {
+        accessoriesArrayList.remove(position);
+        notifyItemRemoved(position);
+    }
+
 }

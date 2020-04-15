@@ -123,9 +123,6 @@ public class AddAccessoriesFragment extends Fragment {
                                                                         String productTitle = binding.productTitle.getText().toString();
                                                                         String productType = binding.itemTypeSpinner.getSelectedItem().toString();
                                                                         Log.d("TAG", "onDataChange: "+productType);
-
-
-
                                                                         String productDescription = binding.productDescription.getText().toString();
                                                                         String creatorPhoneNo = binding.contactNo.getText().toString();
                                                                         String creatorAddress = user.getAddress();
@@ -135,9 +132,6 @@ public class AddAccessoriesFragment extends Fragment {
                                                                         String type = "I want to give";
                                                                         Accessories accessories = new Accessories(productTitle,productType,productDescription,creatorPhoneNo,creatorAddress,postedDate,isEnabled,creatorName,type,productImageUrl,userId);
                                                                         storeToDataBase(accessories);
-
-
-
                                                                         break;
                                                                     case "Organization":
                                                                         Organization organization = snapshot.getValue(Organization.class);
@@ -146,8 +140,6 @@ public class AddAccessoriesFragment extends Fragment {
                                                                         productTitle = binding.productTitle.getText().toString();
                                                                         productType = binding.itemTypeSpinner.getSelectedItem().toString();
                                                                         Log.d("TAG", "onDataChange: "+productType);
-
-
                                                                         productDescription = binding.productDescription.getText().toString();
                                                                         creatorPhoneNo = binding.contactNo.getText().toString();
                                                                         creatorAddress = organization.getAddress();
@@ -157,10 +149,7 @@ public class AddAccessoriesFragment extends Fragment {
                                                                         type = "We need - ";
                                                                         accessories = new Accessories(productTitle, productType, productDescription, creatorPhoneNo, creatorAddress, postedDate, isEnabled, creatorName, type, productImageUrl, userId);
                                                                         storeToDataBase(accessories);
-
                                                                         break;
-
-
                                                                     default:
                                                                         // Amar Mathay Bari Daw :P
                                                                 }
@@ -260,11 +249,7 @@ public class AddAccessoriesFragment extends Fragment {
     private void checkuser() {
 
         SharedPreferences sharedPreferences = context.getSharedPreferences(GlobalVariables.sharedPref, Context.MODE_PRIVATE);
-
         userMode = sharedPreferences.getString(GlobalVariables.userMode,"");
-
-
-
 
     }
 
