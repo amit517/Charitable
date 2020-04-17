@@ -26,10 +26,12 @@ public class MoneySecondAdapter extends RecyclerView.Adapter<MoneySecondAdapter.
 
     private Context context;
     private ArrayList<Money> moneyArrayList;
+    private String type;
 
-    public MoneySecondAdapter(Context context, ArrayList<Money> moneyArrayList) {
+    public MoneySecondAdapter(Context context, ArrayList<Money> moneyArrayList,String type) {
         this.context = context;
         this.moneyArrayList = moneyArrayList;
+        this.type =type;
     }
 
     @NonNull
@@ -43,6 +45,10 @@ public class MoneySecondAdapter extends RecyclerView.Adapter<MoneySecondAdapter.
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final Money money = moneyArrayList.get(position);
         String amount = String.valueOf(money.getAskedAmount());
+
+        if (type.equals("admin")){
+            holder.donateNow.setVisibility(View.GONE);
+        }
 
         holder.askedAmmount.setText(amount);
         holder.dateMoney.setText(money.getPostedDate());

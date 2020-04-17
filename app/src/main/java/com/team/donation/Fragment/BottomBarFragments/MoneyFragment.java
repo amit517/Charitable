@@ -138,7 +138,7 @@ public class MoneyFragment extends Fragment {
 
     private void configureRV() {
 
-        adapter = new MoneySecondAdapter(context,moneyArrayList);
+        adapter = new MoneySecondAdapter(context,moneyArrayList,"org");
         binding.moneyRV.setLayoutManager(new LinearLayoutManager(context));
         binding.moneyRV.setAdapter(adapter);
 
