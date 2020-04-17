@@ -23,13 +23,28 @@
             android:orientation="vertical"
             android:layout_margin="15dp">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Ammount Needed"
-                android:textSize="20sp"
-                android:textColor="@color/black_alfa_70"
-                />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="Ammount Needed"
+                    android:textSize="20sp"
+                    android:textColor="@color/black_alfa_70"
+                    />
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_report_black_24dp"
+                    android:id="@+id/report1"/>
+
+            </LinearLayout>
+
+
 
             <LinearLayout
                 android:layout_width="match_parent"

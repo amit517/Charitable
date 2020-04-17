@@ -84,6 +84,22 @@ public class AccessoriesAdapter extends RecyclerView.Adapter<AccessoriesAdapter.
                 }
             });
 
+        /*holder.report.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String[] TO = {"charitable321@gmail.com"};
+
+                Intent intent = new Intent(Intent.ACTION_SEND);
+
+                intent.setType("text/html");
+                intent.putExtra(Intent.EXTRA_EMAIL, TO);
+                intent.putExtra(Intent.EXTRA_SUBJECT, "Want To report");
+                intent.putExtra(Intent.EXTRA_TEXT, "Hi Charitable, I want to report on the post "+currentAcc.getUniqueID()+" \n Organization Name "+currentAcc.getCreatorName());
+
+                context.startActivity(Intent.createChooser(intent, "Send Email"));
+            }
+        });*/
+
     }
 
     @Override
@@ -95,7 +111,7 @@ public class AccessoriesAdapter extends RecyclerView.Adapter<AccessoriesAdapter.
 
         TextView postType,productTitle,date,creatorName,type,productDescription,phoneNumber,locationTv;
         ImageButton callBtn;
-        ImageView accProductimage;
+        ImageView accProductimage,report;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -110,6 +126,7 @@ public class AccessoriesAdapter extends RecyclerView.Adapter<AccessoriesAdapter.
             locationTv = itemView.findViewById(R.id.locationTv);
             accProductimage = itemView.findViewById(R.id.accProductimage);
             callBtn = itemView.findViewById(R.id.callBtn);
+            //report = itemView.findViewById(R.id.report);
 
         }
     }

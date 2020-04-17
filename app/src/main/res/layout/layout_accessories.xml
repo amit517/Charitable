@@ -14,19 +14,43 @@
             app:cardCornerRadius="8dp"
             app:cardElevation="10dp"
             android:layout_marginBottom="20dp"
+
             >
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_margin="15dp"
+                >
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Want to give"
-                    android:id="@+id/postType"
-                    />
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="Want to give"
+                        android:id="@+id/postType"
+                        android:textStyle="bold"
+                        android:textSize="23dp"
+                        android:padding="5dp"
+                        android:textColor="@color/black_alfa_70"
+
+                        />
+
+
+                    <!--<ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_report_black_24dp"
+                        android:id="@+id/report"/>-->
+
+
+                </LinearLayout>
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -39,13 +63,20 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Want tp share Books"
-                        android:id="@+id/productTitle"/>
+                        android:id="@+id/productTitle"
+                        android:padding="5dp"
+                        android:textColor="@color/black_alfa_70"
+                        />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Created date"
-                        android:id="@+id/date"/>
+                        android:id="@+id/date"
+                        android:padding="5dp"
+                        android:textColor="@color/black_alfa_70"
+                        android:textStyle="italic"
+                        />
 
                 </LinearLayout>
 
@@ -60,13 +91,18 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Pother Pachali"
-                        android:id="@+id/creatorName"/>
+                        android:id="@+id/creatorName"
+                        android:padding="5dp"
+                        android:textColor="@color/black_alfa_70"
+                        />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Books"
-                        android:id="@+id/type"/>
+                        android:id="@+id/type"
+                        android:padding="5dp"
+                        android:textColor="@color/black_alfa_70"/>
 
                 </LinearLayout>
 
@@ -74,7 +110,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Description"
-                    android:id="@+id/productDescription"/>
+                    android:id="@+id/productDescription"
+                    android:padding="5dp"
+                    android:textColor="@color/black_alfa_70"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -90,14 +128,15 @@
                         android:layout_height="wrap_content"
                         android:text="016585050778"
                         android:textColor="@android:color/black"
-                        android:textSize="20sp"
+                        android:textSize="18sp"
                         android:layout_gravity="center"
+                        android:padding="5dp"
                         />
 
                     <ImageButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_call_2"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:src="@drawable/ic_call_black_24dp"
                         android:background="@drawable/round_shape_xml_2"
                         android:layout_alignParentRight="true"
                         android:layout_marginTop="2dp"
@@ -112,13 +151,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginTop="10dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Location"
-                        android:textColor="#000" />
+                        android:textColor="#000"
+                        android:padding="5dp"
+                        />
 
                     <TextView
                         android:id="@+id/locationTv"
@@ -126,7 +168,8 @@
                         android:layout_height="wrap_content"
                         android:text="House 28 (1st, 4th &amp; 5th Floor), Road 5,, Dhanmondi, Dhaka 1205"
                         android:textColor="#000"
-                        android:textSize="17sp" />
+                        android:textSize="17sp"
+                        android:padding="5dp"/>
                 </LinearLayout>
 
                 <ImageView
