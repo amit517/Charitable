@@ -98,7 +98,6 @@ public class AddAccessoriesFragment extends Fragment {
                     progressDialog.show();
                     userId = firebaseAuth.getCurrentUser().getUid();
 
-
                     final StorageReference profileImageRef = storageReference.child("Product Images").child(String.valueOf(System.currentTimeMillis()));
                     if (uri!=null){
                         profileImageRef.putFile(uri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
@@ -180,8 +179,6 @@ public class AddAccessoriesFragment extends Fragment {
                             }
                         });
 
-
-
                     }else {
                         progressDialog.dismiss();
                         Toast.makeText(context, "Please select Product image", Toast.LENGTH_SHORT).show();
@@ -233,8 +230,6 @@ public class AddAccessoriesFragment extends Fragment {
                 }
             }
         });
-
-
     }
 
     private void init() {

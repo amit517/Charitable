@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import com.fxn.OnBubbleClickListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -18,6 +19,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.team.donation.Fragment.BottomBarFragments.AboutUsFragment;
 import com.team.donation.Fragment.BottomBarFragments.AccessoriesFragment;
@@ -26,7 +28,10 @@ import com.team.donation.Fragment.BottomBarFragments.OrgOwnFragment;
 import com.team.donation.Fragment.BottomBarFragments.UserFragment;
 import com.team.donation.Model.Organization;
 import com.team.donation.R;
+import com.team.donation.Utils.Logout;
 import com.team.donation.databinding.ActivityOrganizerMainBinding;
+
+import static com.team.donation.Utils.GlobalVariables.userID;
 
 public class OrganizerMainActivity extends AppCompatActivity {
 
@@ -41,24 +46,31 @@ public class OrganizerMainActivity extends AppCompatActivity {
         databaseReference = FirebaseDatabase.getInstance().getReference();
         firebaseAuth = FirebaseAuth.getInstance();
 
-        String userID = firebaseAuth.getUid();
 
-        databaseReference.child("users").child(userID).addValueEventListener(new ValueEventListener() {
+        checkUser(new firebaseCallBack() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.equals(Organization.class)){
-                    Log.d("TAG", "onDataChange: "+"True");
+            public void Onresult(String user) {
+                Log.d("TAG", "Onresult: "+user);
+
+                if (!user.equals("organization")){
+                    binding.frameLayout.setVisibility(View.GONE);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(OrganizerMainActivity.this,android.R.style.Theme_Black_NoTitleBar_Fullscreen);
+                    builder.setTitle("Unauthorized");
+                    builder.setIcon(R.drawable.ic_error_outline_black_24dp);
+                    builder.setMessage("You are not authorized in this section.\nPlease select correct user mode and try again.");
+                    builder.setNegativeButton("Logout", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            Logout.logout(OrganizerMainActivity.this);
+                        }
+                    })
+                            .setCancelable(false);
+                    AlertDialog alert = builder.create();
+                    alert.show();
+
                 }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
-
-
-
 
 
         replaceFragment(new MoneyFragment());
@@ -89,6 +101,28 @@ public class OrganizerMainActivity extends AppCompatActivity {
                         default: // DashBoard Fragment
                             replaceFragment(new MoneyFragment());
                 }
+
+            }
+        });
+
+    }
+
+    private void checkUser(final firebaseCallBack firebaseCallBack) {
+
+        String userID = firebaseAuth.getUid();
+
+        Query query = databaseReference.child("users").child(userID).child("accountType");
+
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String user= dataSnapshot.getValue(String.class);
+                Log.d("TAG", "onDataChange: "+user);
+                firebaseCallBack.Onresult(user);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
@@ -137,5 +171,9 @@ public class OrganizerMainActivity extends AppCompatActivity {
             getSupportFragmentManager().popBackStack();
         }
 
+    }
+
+    private interface firebaseCallBack{
+        void Onresult(String user);
     }
 }

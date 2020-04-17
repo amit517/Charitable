@@ -1,0 +1,28 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/posts"
+        android:icon="@drawable/ic_message_black_24dp"
+        android:title="All Posts"
+        android:checked="true"
+        android:iconTint="@color/home"/>
+
+
+    <item
+        android:id="@+id/all_user"
+        android:icon="@drawable/ic_user"
+        android:title="All Users"
+        android:iconTint="@color/settings"/>
+    <item
+        android:id="@+id/see_donation"
+        android:icon="@drawable/ic_heart"
+        android:title="See Donation"
+        android:iconTint="@color/colorPrimary"/>
+
+    <item
+        android:id="@+id/user_profile"
+        android:icon="@drawable/ic_account_box_black_24dp"
+        android:title="Profile"
+        android:iconTint="@color/documents"/>
+
+
+</menu>

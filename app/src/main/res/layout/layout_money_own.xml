@@ -13,30 +13,30 @@
         app:cardCornerRadius="8dp"
         app:cardElevation="10dp"
         android:layout_marginBottom="20dp"
+        android:backgroundTint="#D1E4E2"
         >
 
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/test"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+
+            android:layout_margin="15dp">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Ammount Neede"
+                android:text="Ammount Needed"
                 android:textSize="20sp"
+                android:textColor="@color/black_alfa_70"
                 />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:layout_marginTop="5dp"
                 >
 
                 <TextView
@@ -44,13 +44,17 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="2500"
-                    android:id="@+id/ammountasked"/>
+                    android:textSize="15sp"
+                    android:id="@+id/ammountasked"
+                    android:textColor="@color/black_alfa_70"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Created date"
-                    android:id="@+id/dateMoney11"/>
+                    android:id="@+id/dateMoney11"
+                    android:textStyle="italic"
+                    android:textColor="@color/black_alfa_70"/>
 
             </LinearLayout>
 

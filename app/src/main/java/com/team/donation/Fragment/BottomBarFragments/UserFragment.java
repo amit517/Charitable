@@ -17,6 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.team.donation.Activity.LoginActivity;
 import com.team.donation.R;
 import com.team.donation.Utils.GlobalVariables;
+import com.team.donation.Utils.Logout;
 import com.team.donation.databinding.FragmentUserBinding;
 
 import kotlin.jvm.internal.PropertyReference0Impl;
@@ -52,17 +53,7 @@ public class UserFragment extends Fragment {
         binding.signOutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences sharedPreferences = getContext().getSharedPreferences(GlobalVariables.sharedPref, MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-
-                editor.remove(GlobalVariables.sharedPref);
-                editor.remove(GlobalVariables.userID);
-                editor.remove(GlobalVariables.userMode);
-
-                editor.apply();
-                firebaseAuth.signOut();
-                startActivity(new Intent(getContext(), LoginActivity.class));
-                getActivity().finish();
+                Logout.logout(context);
             }
         });
 
