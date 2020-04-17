@@ -60,8 +60,6 @@
                         android:singleLine="true"
                         android:layout_weight=".5"
                         android:imeOptions="actionNext"/>
-
-
                 </LinearLayout>
 
 
@@ -69,10 +67,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/nidET"
-                    android:hint="NID number"
+                    android:text="NID number Not needed"
                     android:singleLine="true"
                     android:inputType="number"
-                    android:imeOptions="actionNext"/>
+                    android:imeOptions="actionNext"
+                    android:visibility="gone"/>
 
                 <EditText
                     android:layout_width="match_parent"

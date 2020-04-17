@@ -23,10 +23,12 @@ public class OrgAdapter extends RecyclerView.Adapter<OrgAdapter.ViewHolder> {
 
     private Context context;
     private ArrayList<Organization> organizationArrayList;
+    private AccAdapter.OnDeleteClickListener onDeleteClickListener;
 
-    public OrgAdapter(Context context, ArrayList<Organization> organizationArrayList) {
+    public OrgAdapter(Context context, ArrayList<Organization> organizationArrayList, AccAdapter.OnDeleteClickListener onDeleteClickListener) {
         this.context = context;
         this.organizationArrayList = organizationArrayList;
+        this.onDeleteClickListener = onDeleteClickListener;
     }
 
     @NonNull
@@ -39,18 +41,23 @@ public class OrgAdapter extends RecyclerView.Adapter<OrgAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
 
-        holder.orgName.append(organizationArrayList.get(position).getName());
-        holder.orgPhone.append(organizationArrayList.get(position).getPhoneNumber());
-        holder.orgEmail.append(organizationArrayList.get(position).getEmail());
-        holder.orgRegNo.append(organizationArrayList.get(position).getRegNumber());
-        holder.orgAddress.append(organizationArrayList.get(position).getAddress());
+        if (organizationArrayList.get(position).getIsActive().equals("Banned")){
+            holder.deleteOrg.setVisibility(View.GONE);
+        }
+
+        holder.orgName.setText(organizationArrayList.get(position).getName());
+        holder.orgPhone.setText(organizationArrayList.get(position).getPhoneNumber());
+        holder.orgEmail.setText(organizationArrayList.get(position).getEmail());
+        holder.orgRegNo.setText(organizationArrayList.get(position).getRegNumber());
+        holder.orgAddress.setText(organizationArrayList.get(position).getAddress());
+        holder.accountStatus.setText(organizationArrayList.get(position).getIsActive());
 
         holder.deleteOrg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                onDeleteClickListener.deleteButtonclicked(position);
             }
         });
 
@@ -63,7 +70,7 @@ public class OrgAdapter extends RecyclerView.Adapter<OrgAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView orgName,orgRegNo,orgPhone,orgAddress,orgEmail;
+        TextView orgName,orgRegNo,orgPhone,orgAddress,orgEmail,accountStatus;
         Button deleteOrg;
 
         public ViewHolder(@NonNull View itemView) {
@@ -74,7 +81,13 @@ public class OrgAdapter extends RecyclerView.Adapter<OrgAdapter.ViewHolder> {
             orgAddress = itemView.findViewById(R.id.orgAddress);
             orgEmail = itemView.findViewById(R.id.orgEmail);
             deleteOrg = itemView.findViewById(R.id.deleteOrg);
+            accountStatus = itemView.findViewById(R.id.accountStatus);
 
         }
+    }
+
+    public void clear() {
+        organizationArrayList.clear();
+        notifyDataSetChanged();
     }
 }

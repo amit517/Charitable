@@ -136,7 +136,7 @@ public class OrganizationSignUpActivity extends AppCompatActivity {
 
                             assert firebaseUser != null;
                             String uniqueId = firebaseUser.getUid();
-                            Organization organization = new Organization(orgName,orgRegNo,phoneNumber,address,email,uniqueId,"organization");
+                            Organization organization = new Organization(orgName,orgRegNo,phoneNumber,address,email,uniqueId,"organization","Active");
 
                             storeOnDatabase(organization);
 

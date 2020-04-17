@@ -13,11 +13,12 @@ public class Organization {
     private String profileImageUrl;
     private String uniqueId;
     private String accountType;
+    private String isActive;
 
     public Organization() {
     }
 
-    public Organization(String name, String regNumber, String phoneNumber, String address, String email, String uniqueId, String accountType) {
+    public Organization(String name, String regNumber, String phoneNumber, String address, String email, String uniqueId, String accountType,String isActive) {
         this.name = name;
         this.regNumber = regNumber;
         this.phoneNumber = phoneNumber;
@@ -25,9 +26,10 @@ public class Organization {
         this.email = email;
         this.uniqueId = uniqueId;
         this.accountType = accountType;
+        this.isActive = isActive;
     }
 
-    public Organization(String name, String regNumber, String phoneNumber, String address, String email, String profileImageUrl, String uniqueId, String accountType) {
+    public Organization(String name, String regNumber, String phoneNumber, String address, String email, String profileImageUrl, String uniqueId, String accountType,String isActive) {
         this.name = name;
         this.regNumber = regNumber;
         this.phoneNumber = phoneNumber;
@@ -36,8 +38,16 @@ public class Organization {
         this.profileImageUrl = profileImageUrl;
         this.uniqueId = uniqueId;
         this.accountType = accountType;
+        this.isActive = isActive;
     }
 
+    public String getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(String isActive) {
+        this.isActive = isActive;
+    }
 
     public String getName() {
         return name;
