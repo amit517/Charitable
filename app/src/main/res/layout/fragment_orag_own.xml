@@ -1,58 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:app="http://schemas.android.com/apk/res-auto">
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".Fragment.BottomBarFragments.OrgOwnFragment"
-        android:orientation="vertical">
+        >
 
-        <com.airbnb.lottie.LottieAnimationView
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:lottie_fileName="19134-loading.json"
-            app:lottie_loop="true"
-            app:lottie_autoPlay="true"
-            android:id="@+id/animationView"
-            />
+            android:orientation="vertical">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Accessories"
-            android:textSize="20sp"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="5dp"
-            android:textColor="@android:color/black"
-            android:gravity="center"/>
+            <com.airbnb.lottie.LottieAnimationView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:lottie_fileName="19134-loading.json"
+                app:lottie_loop="true"
+                app:lottie_autoPlay="true"
+                android:id="@+id/animationView"
+                />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:id="@+id/accoriesRV"
-            android:layout_margin="10dp"
-            />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Accessories"
+                android:textSize="20sp"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"
+                android:textColor="@android:color/black"
+                android:gravity="center"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Money"
-            android:textSize="20sp"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="5dp"
-            android:id="@+id/money_tv"
-            android:gravity="center"
-            />
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/accoriesRV"
+                android:layout_margin="10dp"
+                />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:id="@+id/moneyRV"
-            android:layout_margin="10dp"
-            />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Money"
+                android:textSize="20sp"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"
+                android:id="@+id/money_tv"
+                android:gravity="center"
+                android:textColor="@android:color/black"
+                />
 
-    </LinearLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/moneyRV"
+                android:layout_margin="10dp"
+                />
+
+        </LinearLayout>
+
+
+
+    </ScrollView>
 
 </layout>

@@ -49,13 +49,18 @@ public class AboutUsFragment extends Fragment {
         binding.email.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                String[] TO = {"charitable321@gmail.com"};
+
                 Intent intent = new Intent(Intent.ACTION_SEND);
+
                 intent.setType("text/html");
-                intent.putExtra(Intent.EXTRA_EMAIL, "charitable321@gmail.com");
+                intent.putExtra(Intent.EXTRA_EMAIL, TO);
                 intent.putExtra(Intent.EXTRA_SUBJECT, "Hello");
                 intent.putExtra(Intent.EXTRA_TEXT, "Hi Charitable,");
-
                 startActivity(Intent.createChooser(intent, "Send Email"));
+
+
             }
         });
 

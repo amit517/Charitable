@@ -49,6 +49,7 @@ public class MoneySecondAdapter extends RecyclerView.Adapter<MoneySecondAdapter.
 
         if (type.equals("admin")){
             holder.donateNow.setVisibility(View.GONE);
+            holder.report1.setVisibility(View.GONE);
         }
 
         holder.askedAmmount.setText(amount);
