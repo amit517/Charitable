@@ -95,7 +95,9 @@
                         android:padding="10dp"
                         android:singleLine="true"
                         android:inputType="numberDecimal"
-                        android:imeOptions="actionNext"/>
+                        android:imeOptions="actionNext"
+                        android:maxLength="7"
+                        />
                 </LinearLayout>
 
 

@@ -66,6 +66,7 @@
                         android:id="@+id/productTitle"
                         android:padding="5dp"
                         android:textColor="@color/black_alfa_70"
+                        android:textStyle="bold"
                         />
 
                     <TextView
@@ -134,8 +135,8 @@
                         />
 
                     <ImageButton
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:src="@drawable/ic_call_black_24dp"
                         android:background="@drawable/round_shape_xml_2"
                         android:layout_alignParentRight="true"

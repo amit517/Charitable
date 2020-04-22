@@ -49,11 +49,12 @@
                     <EditText
                         android:id="@+id/money_amount"
                         android:layout_width="match_parent"
-
+                        android:maxLength="7"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="-5dp"
                         android:layout_marginTop="10dp"
                         android:hint="Amount"
+
                         android:padding="10dp"
                         android:singleLine="true"
                         android:inputType="numberDecimal"
@@ -137,7 +138,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="-5dp"
                         android:layout_marginTop="10dp"
-                        android:hint="+88"
+                        android:hint="01"
+                        android:maxLength="11"
                         android:padding="10dp"
                         android:inputType="phone"
                         android:singleLine="true"

@@ -70,6 +70,7 @@ public class MoneySecondAdapter extends RecyclerView.Adapter<MoneySecondAdapter.
             @Override
             public void onClick(View v) {
 
+                Toast.makeText(context, "Send email report", Toast.LENGTH_SHORT).show();
 
                 String[] TO = {"charitable321@gmail.com"};
 

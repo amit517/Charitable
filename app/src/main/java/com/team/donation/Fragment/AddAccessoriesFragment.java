@@ -128,7 +128,7 @@ public class AddAccessoriesFragment extends Fragment {
                                                                         String postedDate = DateTimeHelper.getDate();
                                                                         boolean isEnabled = true;
                                                                         String creatorName = user.getFirstName()+" "+user.getLastName();
-                                                                        String type = "I want to give";
+                                                                        String type = "User";
                                                                         Accessories accessories = new Accessories(productTitle,productType,productDescription,creatorPhoneNo,creatorAddress,postedDate,isEnabled,creatorName,type,productImageUrl,userId);
                                                                         storeToDataBase(accessories);
                                                                         break;
@@ -145,7 +145,7 @@ public class AddAccessoriesFragment extends Fragment {
                                                                         postedDate = DateTimeHelper.getDate();
                                                                         isEnabled = true;
                                                                         creatorName = organization.getName();
-                                                                        type = "We need - ";
+                                                                        type = "Organization";
                                                                         accessories = new Accessories(productTitle, productType, productDescription, creatorPhoneNo, creatorAddress, postedDate, isEnabled, creatorName, type, productImageUrl, userId);
                                                                         storeToDataBase(accessories);
                                                                         break;

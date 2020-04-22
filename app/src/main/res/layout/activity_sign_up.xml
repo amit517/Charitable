@@ -80,6 +80,8 @@
                     android:hint="Phone Number"
                     android:inputType="phone"
                     android:singleLine="true"
+                    android:maxLength="11"
+                    android:text=""
                     android:imeOptions="actionNext"/>
 
                 <EditText

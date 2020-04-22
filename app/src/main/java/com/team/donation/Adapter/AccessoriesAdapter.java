@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.storage.StorageReference;
@@ -22,6 +23,7 @@ import com.team.donation.Model.Accessories;
 import com.team.donation.R;
 
 import java.util.ArrayList;
+
 
 /**
  * Created by Amit on 12,April,2020
@@ -49,7 +51,16 @@ public class AccessoriesAdapter extends RecyclerView.Adapter<AccessoriesAdapter.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
+
+
         final Accessories currentAcc = accessoriesArrayList.get(position);
+
+        if (currentAcc.getType().equals("User")){
+            holder.postType.setTextColor(ContextCompat.getColor(context,R.color.green));
+        }
+        else if (currentAcc.getType().equals("Organization")){
+            holder.postType.setTextColor(ContextCompat.getColor(context,R.color.red));
+        }
         holder.postType.setText(currentAcc.getType());
         holder.productTitle.setText(currentAcc.getProductTitle());
         holder.creatorName.setText(currentAcc.getCreatorName());
@@ -66,7 +77,7 @@ public class AccessoriesAdapter extends RecyclerView.Adapter<AccessoriesAdapter.
         Picasso
                 .get()
                 .load(img_url)
-                .resize(400,400)
+                .resize(600,600)
                 .into(holder.accProductimage);
 
         holder.callBtn.setOnClickListener(new View.OnClickListener() {

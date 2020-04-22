@@ -51,11 +51,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/regET"
-                    android:hint="Organization Reg No."
-                    android:inputType="number"
+                    android:hint="Organization Reg No / NID No"
                     android:singleLine="true"
                     android:imeOptions="actionNext"/>
-
 
                 <EditText
                     android:layout_width="match_parent"
@@ -64,6 +62,8 @@
                     android:hint="Phone Number"
                     android:inputType="phone"
                     android:singleLine="true"
+                    android:maxLength="11"
+
                     android:imeOptions="actionNext"/>
 
                 <EditText

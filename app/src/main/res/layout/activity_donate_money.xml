@@ -94,6 +94,7 @@
                             android:layout_marginTop="10dp"
                             android:hint="Amount"
                             android:padding="10dp"
+                            android:maxLength="7"
                             android:singleLine="true"
                             android:inputType="numberDecimal"
                             android:imeOptions="actionNext"/>

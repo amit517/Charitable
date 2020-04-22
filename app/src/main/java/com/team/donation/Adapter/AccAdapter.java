@@ -65,7 +65,7 @@ public class AccAdapter extends RecyclerView.Adapter<AccAdapter.ViewHolder> {
         Picasso
                 .get()
                 .load(img_url)
-                .resize(400,400)
+                .resize(600,600)
                 .into(holder.accProductimage11);
     }
 
