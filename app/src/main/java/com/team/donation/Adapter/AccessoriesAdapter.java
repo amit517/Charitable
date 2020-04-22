@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 import com.team.donation.Model.Accessories;
+import com.team.donation.Model.Money;
 import com.team.donation.R;
 
 import java.util.ArrayList;
@@ -60,6 +61,9 @@ public class AccessoriesAdapter extends RecyclerView.Adapter<AccessoriesAdapter.
         }
         else if (currentAcc.getType().equals("Organization")){
             holder.postType.setTextColor(ContextCompat.getColor(context,R.color.red));
+        }
+        else {
+            holder.postType.setTextColor(ContextCompat.getColor(context,R.color.black_alfa_70));
         }
         holder.postType.setText(currentAcc.getType());
         holder.productTitle.setText(currentAcc.getProductTitle());
@@ -118,6 +122,7 @@ public class AccessoriesAdapter extends RecyclerView.Adapter<AccessoriesAdapter.
         return accessoriesArrayList.size();
     }
 
+
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView postType,productTitle,date,creatorName,type,productDescription,phoneNumber,locationTv;
@@ -140,5 +145,7 @@ public class AccessoriesAdapter extends RecyclerView.Adapter<AccessoriesAdapter.
             //report = itemView.findViewById(R.id.report);
 
         }
+
+
     }
 }

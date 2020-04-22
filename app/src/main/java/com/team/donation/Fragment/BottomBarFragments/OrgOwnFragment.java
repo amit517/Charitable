@@ -174,12 +174,21 @@ public class OrgOwnFragment extends Fragment implements AccAdapter.OnDeleteClick
     }
 
     private void configureRV() {
+
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(context);
+        mLayoutManager.setReverseLayout(true);
+        mLayoutManager.setStackFromEnd(true);
+
+        LinearLayoutManager m2LayoutManager = new LinearLayoutManager(context);
+        m2LayoutManager.setReverseLayout(true);
+        m2LayoutManager.setStackFromEnd(true);
+
         moneyAdapter = new OwnMoneyAdapter(context,moneyArrayList);
-        binding.moneyRV.setLayoutManager(new LinearLayoutManager(context));
+        binding.moneyRV.setLayoutManager(mLayoutManager);
         binding.moneyRV.setAdapter(moneyAdapter);
 
         adapter= new AccAdapter(context,accessoriesArrayList,this);
-        binding.accoriesRV.setLayoutManager(new LinearLayoutManager(getActivity()));
+        binding.accoriesRV.setLayoutManager(m2LayoutManager);
         binding.accoriesRV.setAdapter(adapter);
 
     }

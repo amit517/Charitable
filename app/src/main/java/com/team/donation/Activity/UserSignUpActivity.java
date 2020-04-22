@@ -79,6 +79,7 @@ public class UserSignUpActivity extends AppCompatActivity {
                     }
                     else
                     {
+                        progressDialog.dismiss();
                         if(firstName.isEmpty())
                         {
                             binding.firstNameET.setError("First Name Can't Be Empty");

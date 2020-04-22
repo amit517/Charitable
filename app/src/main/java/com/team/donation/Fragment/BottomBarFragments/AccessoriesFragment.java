@@ -2,6 +2,7 @@ package com.team.donation.Fragment.BottomBarFragments;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Path;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -10,15 +11,19 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.team.donation.Adapter.AccessoriesAdapter;
 import com.team.donation.Fragment.AddAccessoriesFragment;
@@ -76,23 +81,85 @@ public class AccessoriesFragment extends Fragment {
 
             }
         });
+
+
+        binding.search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getAllacc();
+            }
+        });
+
+        ArrayAdapter<CharSequence> Spinneradapter = ArrayAdapter.createFromResource(context,
+                R.array.currency_array, android.R.layout.simple_spinner_item);
+
+        Spinneradapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        binding.itemTypeSpinner.setAdapter(Spinneradapter);
+
+
+
+        binding.itemTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Query query= databaseReference.child("Accessories").orderByChild("productType").equalTo(binding.itemTypeSpinner.getSelectedItem().toString());
+                Log.d("TAG", "onItemSelected: "+binding.itemTypeSpinner.getSelectedItem().toString());
+
+                query.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()){
+                            accessoriesArrayList.clear();
+
+                            for (DataSnapshot data : dataSnapshot.getChildren()){
+                                Accessories accessories = data.getValue(Accessories.class);
+                                accessoriesArrayList.add(accessories);
+                            }
+                            Log.d("TAG", "onItemSelected: "+accessoriesArrayList.size());
+                            Log.d("TAG", "onItemSelected: "+accessoriesArrayList.get(0).getCreatorName());
+                        }
+
+                        adapter.notifyDataSetChanged();
+                        // binding.animationView.setVisibility(View.GONE);
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+
+
         return binding.getRoot();
     }
 
     private void getAllacc() {
 
-        DatabaseReference userRef = databaseReference.child("Accessories");
+        Query userRef = databaseReference.child("Accessories");
         userRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
                     accessoriesArrayList.clear();
+
                     for (DataSnapshot data:dataSnapshot.getChildren()
                     ) {
                         Accessories accessories = data.getValue(Accessories.class);
                         accessoriesArrayList.add(accessories);
 
                     }
+
                     adapter.notifyDataSetChanged();
                     binding.animationView.setVisibility(View.GONE);
                 }
@@ -109,7 +176,12 @@ public class AccessoriesFragment extends Fragment {
 
     private void configureRV() {
         adapter = new AccessoriesAdapter(context,accessoriesArrayList);
-        binding.moneyRV.setLayoutManager(new LinearLayoutManager(context));
+
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(context);
+        mLayoutManager.setReverseLayout(true);
+        mLayoutManager.setStackFromEnd(true);
+
+        binding.moneyRV.setLayoutManager(mLayoutManager);
         binding.moneyRV.setAdapter(adapter);
     }
 

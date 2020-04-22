@@ -13,12 +13,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.team.donation.Adapter.AccessoriesAdapter;
 import com.team.donation.Adapter.MoneySecondAdapter;
@@ -71,19 +74,82 @@ public class AllPostFragment extends Fragment {
         getAllacc();
 
 
+        binding.search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getAllacc();
+            }
+        });
+
+        ArrayAdapter<CharSequence> Spinneradapter = ArrayAdapter.createFromResource(context,
+                R.array.currency_array, android.R.layout.simple_spinner_item);
+
+        Spinneradapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        binding.itemTypeSpinner.setAdapter(Spinneradapter);
+
+
+
+        binding.itemTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Query query= databaseReference.child("Accessories").orderByChild("productType").equalTo(binding.itemTypeSpinner.getSelectedItem().toString());
+                Log.d("TAG", "onItemSelected: "+binding.itemTypeSpinner.getSelectedItem().toString());
+
+                query.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()){
+                            accessoriesArrayList.clear();
+
+                            for (DataSnapshot data : dataSnapshot.getChildren()){
+                                Accessories accessories = data.getValue(Accessories.class);
+                                accessoriesArrayList.add(accessories);
+                            }
+                            Log.d("TAG", "onItemSelected: "+accessoriesArrayList.size());
+                            Log.d("TAG", "onItemSelected: "+accessoriesArrayList.get(0).getCreatorName());
+                        }
+
+                        accAdapter.notifyDataSetChanged();
+                        // binding.animationView.setVisibility(View.GONE);
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
         return binding.getRoot();
     }
 
     private void configureRV() {
 
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(context);
+        mLayoutManager.setReverseLayout(true);
+        mLayoutManager.setStackFromEnd(true);
+
+        LinearLayoutManager m2LayoutManager = new LinearLayoutManager(context);
+        m2LayoutManager.setReverseLayout(true);
+        m2LayoutManager.setStackFromEnd(true);
 
         adapter = new MoneySecondAdapter(context,moneyArrayList,"admin");
-        binding.moneyRV.setLayoutManager(new LinearLayoutManager(context));
+        binding.moneyRV.setLayoutManager(mLayoutManager);
         binding.moneyRV.setAdapter(adapter);
 
 
         accAdapter = new AccessoriesAdapter(context,accessoriesArrayList);
-        binding.accRV.setLayoutManager(new LinearLayoutManager(context));
+        binding.accRV.setLayoutManager(m2LayoutManager);
         binding.accRV.setAdapter(accAdapter);
 
 

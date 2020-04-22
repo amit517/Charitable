@@ -139,7 +139,12 @@ public class MoneyFragment extends Fragment {
     private void configureRV() {
 
         adapter = new MoneySecondAdapter(context,moneyArrayList,"org");
-        binding.moneyRV.setLayoutManager(new LinearLayoutManager(context));
+
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(context);
+        mLayoutManager.setReverseLayout(true);
+        mLayoutManager.setStackFromEnd(true);
+
+        binding.moneyRV.setLayoutManager(mLayoutManager);
         binding.moneyRV.setAdapter(adapter);
 
     }

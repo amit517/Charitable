@@ -49,8 +49,28 @@ public class LoginActivity extends AppCompatActivity {
                 if (NetChecker.isNetworkAvailable(LoginActivity.this)){
                     String email = binding.etUserId.getText().toString();
                     String password = binding.etPassword.getText().toString();
-                    progressDialog.show();
-                    signInWithEmailPassword(email,password);
+
+
+                    boolean result = checkField(email,password); // checking if any of the field is empty
+
+                    if(result)
+                    {
+                        progressDialog.show();
+                        signInWithEmailPassword(email,password);
+                    }
+                    else
+                    {
+                        if(email.isEmpty())
+                        {
+                            binding.etUserId.setError("Email Can't Be Empty");
+                        }
+                        else if (password.isEmpty())
+                        {
+                            binding.etPassword.setError("Password Can't Be empty");
+                        }
+                    }
+
+
                 }
                 
                 else {
@@ -58,6 +78,8 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+
+
 
 
         binding.signUpTV.setOnClickListener(new View.OnClickListener() {
@@ -116,6 +138,7 @@ public class LoginActivity extends AppCompatActivity {
                     /*Toast.makeText(LoginActivity.this, "Sign In Successful", Toast.LENGTH_SHORT).show();
                     goToMain();*/
                     saveData();
+                    progressDialog.dismiss();
                     goToNewActivity(userMode);
 
 
@@ -156,5 +179,18 @@ public class LoginActivity extends AppCompatActivity {
     private void goToMain() {
         startActivity(new Intent(LoginActivity.this, MainActivity.class)
                 .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK));
+    }
+
+    private boolean checkField(String teamID, String teamPassword) {
+
+        if(teamID.isEmpty() || teamPassword.isEmpty())
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+
     }
 }

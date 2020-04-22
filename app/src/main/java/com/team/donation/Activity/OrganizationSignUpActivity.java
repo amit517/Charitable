@@ -76,14 +76,14 @@ public class OrganizationSignUpActivity extends AppCompatActivity {
                         creatUser(orgName,orgRegNo,phoneNumber,address,email,password);
                     }
                     else
-                    {
+                    {   progressDialog.dismiss();
                         if(orgName.isEmpty())
                         {
-                            binding.orgNameET.setError("First Name Can't Be Empty");
+                            binding.orgNameET.setError("Name Can't Be Empty");
                         }
                         else if (orgRegNo.isEmpty())
                         {
-                            binding.regET.setError("Last Name Can't Be empty");
+                            binding.regET.setError("Reg No Can't Be empty");
                         }
 
                         else if (phoneNumber.isEmpty())
