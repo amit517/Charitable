@@ -6,10 +6,7 @@ import android.os.Parcelable;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Amit on 08,April,2020
- * kundu.amit517@gmail.com
- */
+
 public class Money implements Parcelable {
 
     private String uniqueID;

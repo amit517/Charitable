@@ -20,10 +20,7 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
-/**
- * Created by Amit on 13,April,2020
- * kundu.amit517@gmail.com
- */
+
 public class OwnMoneyAdapter extends RecyclerView.Adapter<OwnMoneyAdapter.ViewHolder> {
 
     private Context context;

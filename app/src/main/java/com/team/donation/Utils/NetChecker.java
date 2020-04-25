@@ -7,10 +7,7 @@ import android.net.NetworkInfo;
 import android.os.Build;
 import android.util.Log;
 
-/**
- * Created by Amit on 07,April,2020
- * kundu.amit517@gmail.com
- */
+
 public class NetChecker {
 
     public static boolean isNetworkAvailable(Context context) {

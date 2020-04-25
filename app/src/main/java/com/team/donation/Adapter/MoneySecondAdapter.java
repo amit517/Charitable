@@ -19,10 +19,7 @@ import com.team.donation.R;
 
 import java.util.ArrayList;
 
-/**
- * Created by Amit on 13,April,2020
- * kundu.amit517@gmail.com
- */
+
 public class MoneySecondAdapter extends RecyclerView.Adapter<MoneySecondAdapter.ViewHolder> {
 
     private Context context;

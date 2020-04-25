@@ -14,10 +14,7 @@ import com.team.donation.R;
 
 import java.util.ArrayList;
 
-/**
- * Created by Amit on 14,April,2020
- * kundu.amit517@gmail.com
- */
+
 public class TransectionAdapter extends RecyclerView.Adapter<TransectionAdapter.ViewHolder> {
 
     private Context context;

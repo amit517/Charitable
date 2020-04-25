@@ -18,10 +18,7 @@ import com.team.donation.R;
 
 import java.util.ArrayList;
 
-/**
- * Created by Amit on 12,April,2020
- * kundu.amit517@gmail.com
- */
+
 public class AccAdapter extends RecyclerView.Adapter<AccAdapter.ViewHolder> {
 
     private Context context;

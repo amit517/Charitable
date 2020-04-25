@@ -15,10 +15,7 @@ import com.team.donation.R;
 
 import java.util.ArrayList;
 
-/**
- * Created by Amit on 17,April,2020
- * kundu.amit517@gmail.com
- */
+
 public class OrgAdapter extends RecyclerView.Adapter<OrgAdapter.ViewHolder> {
 
     private Context context;

@@ -1,9 +1,6 @@
 package com.team.donation.Model;
 
-/**
- * Created by Amit on 07,April,2020
- * kundu.amit517@gmail.com
- */
+
 public class User {
 
     private String firstName;
