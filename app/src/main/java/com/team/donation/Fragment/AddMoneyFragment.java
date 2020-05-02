@@ -92,8 +92,6 @@ public class AddMoneyFragment extends Fragment {
                                         boolean status = true;
                                         String orgName = snapshot.getValue()+"";
 
-                                        ArrayList<Transection> transectionArrayList =new ArrayList<>();
-
                                         Money money = new Money(userId,amount,postedDate,status,orgName,bkahsNo,description);
                                         storeTodatabse(money);
 
@@ -126,7 +124,6 @@ public class AddMoneyFragment extends Fragment {
                 }
             }
         });
-
 
         return binding.getRoot();
     }
@@ -164,10 +161,6 @@ public class AddMoneyFragment extends Fragment {
                 }
             }
         });
-
-
-
-
     }
 
     private void init() {
@@ -178,13 +171,5 @@ public class AddMoneyFragment extends Fragment {
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Please wait...");
 
-    }
-
-    public void replaceFragment(Fragment fragment) {
-        FragmentManager fm = getFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.replace(R.id.frame_layout, fragment);
-        ft.addToBackStack(null);
-        ft.commit();
     }
 }

@@ -35,6 +35,7 @@ import com.team.donation.Model.Money;
 import com.team.donation.Model.Transection;
 import com.team.donation.R;
 import com.team.donation.Utils.GlobalVariables;
+import com.team.donation.Utils.PushFragment;
 import com.team.donation.databinding.FragmentMoneyBinding;
 
 import java.util.ArrayList;
@@ -82,18 +83,9 @@ public class MoneyFragment extends Fragment {
         binding.addNew.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                AddMoneyFragment clientDetailsFragment = new AddMoneyFragment();
-                ft.replace(R.id.frame_layout, clientDetailsFragment);
-                ft.addToBackStack(null);
-                ft.commit();
+                PushFragment.replaceFragment(context,new AddMoneyFragment(),"AddMoney");
             }
         });
-
-
-
-
 
 
         return binding.getRoot();
@@ -110,7 +102,7 @@ public class MoneyFragment extends Fragment {
                     for (DataSnapshot data:dataSnapshot.getChildren()
                     ) {
 
-                        data.getChildren().equals(Transection.class);
+                        //data.getChildren().equals(Transection.class);
 
                         Money money = data.getValue(Money.class);
 

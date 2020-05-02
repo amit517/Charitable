@@ -8,10 +8,13 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.fxn.OnBubbleClickListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -31,12 +34,18 @@ import com.team.donation.Fragment.BottomBarFragments.OrgOwnFragment;
 import com.team.donation.Fragment.BottomBarFragments.UserFragment;
 import com.team.donation.R;
 import com.team.donation.Utils.Logout;
+import com.team.donation.Utils.PushFragment;
 import com.team.donation.databinding.ActivityAdminMainBinding;
+
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class AdminMainActivity extends AppCompatActivity{
     private ActivityAdminMainBinding binding;
     private DatabaseReference databaseReference;
     private FirebaseAuth firebaseAuth;
+    private Fragment contentFragment;
+    private boolean doubleBackToExitPressedOnce;
+    private Context context = AdminMainActivity.this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +85,7 @@ public class AdminMainActivity extends AppCompatActivity{
         }).start();
 
 
-        replaceFragment(new AllPostFragment());
+        PushFragment.replaceFragment(context,new AllPostFragment(),"AllPost");
 
         binding.bottomNavBar.addBubbleListener(new OnBubbleClickListener() {
             @Override
@@ -85,20 +94,19 @@ public class AdminMainActivity extends AppCompatActivity{
 
                 switch (i){
                     case R.id.posts:
-                        replaceFragment(new AllPostFragment());
+                        PushFragment.replaceFragment(context,new AllPostFragment(),"AllPost");
                         break;
                     case R.id.all_user:
-                        replaceFragment(new AllUserFragment());
+                        PushFragment.replaceFragment(context,new AllUserFragment(),"AllUser");
                         break;
 
                     case R.id.see_donation:
-                        replaceFragment(new SeeDonationFragment());
+                        PushFragment.replaceFragment(context,new SeeDonationFragment(),"See Donation");
                         break;
                     case R.id.user_profile:
-                        replaceFragment(new UserFragment());
+                        PushFragment.replaceFragment(context,new UserFragment(),"Profile");
                         break;
-                    default: // DashBoard Fragment
-                        replaceFragment(new MoneyFragment());
+                    default:
                 }
 
             }
@@ -128,48 +136,45 @@ public class AdminMainActivity extends AppCompatActivity{
 
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        doubleBackToExitPressedOnce = true;
+    }
+
     @Override
     public void onBackPressed() {
 
-        int count = getSupportFragmentManager().getBackStackEntryCount();
+        final FragmentManager fm = getSupportFragmentManager();
+        Fragment contentFragment = getSupportFragmentManager().getFragments()
+                .get(getSupportFragmentManager().getFragments().size() - 1);
 
-        if (count == 1) {
-            super.onBackPressed();
-            //additional code
+        if (contentFragment instanceof AllPostFragment ||
+                contentFragment instanceof AllUserFragment ||
+                contentFragment instanceof SeeDonationFragment ||
+                contentFragment instanceof UserFragment ||
+                fm.getBackStackEntryCount() == 0) {
 
-            new AlertDialog.Builder(this)
-                    .setIcon(android.R.drawable.ic_dialog_alert)
-                    .setTitle("Exit Charitable")
-                    .setMessage("Are you sure you want to exit?")
-                    .setPositiveButton("Yes", new DialogInterface.OnClickListener()
-                    {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            finish();
-                        }
+            if (doubleBackToExitPressedOnce) {
+                this.doubleBackToExitPressedOnce = false;
+                new Handler().postDelayed(new Runnable() {
 
-                    })
-                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            replaceFragment(new AllPostFragment());
-                        }
-                    })
-                    .setCancelable(false)
-                    .show();
-
-        } else {
-            getSupportFragmentManager().popBackStack();
+                    @Override
+                    public void run() {
+                        doubleBackToExitPressedOnce = true;
+                    }
+                }, 2000);
+                Toast.makeText(this, "Press again to exit", Toast.LENGTH_SHORT).show();
+            } else {
+                finish();
+            }
+        } else if (fm.getBackStackEntryCount() > 0) {
+            fm.popBackStack();
+            if (fm.getBackStackEntryCount() != 0) {
+                return;
+            }
         }
-
-    }
-
-    public void replaceFragment(Fragment fragment) {
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.replace(R.id.frame_layout, fragment);
-        ft.addToBackStack(null);
-        ft.commit();
     }
 
 

@@ -8,10 +8,13 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.fxn.OnBubbleClickListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,6 +24,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.team.donation.Fragment.AddMoneyFragment;
+import com.team.donation.Fragment.AdminFragment.AllPostFragment;
 import com.team.donation.Fragment.BottomBarFragments.AboutUsFragment;
 import com.team.donation.Fragment.BottomBarFragments.AccessoriesFragment;
 import com.team.donation.Fragment.BottomBarFragments.MoneyFragment;
@@ -29,6 +34,7 @@ import com.team.donation.Fragment.BottomBarFragments.UserFragment;
 import com.team.donation.Model.Organization;
 import com.team.donation.R;
 import com.team.donation.Utils.Logout;
+import com.team.donation.Utils.PushFragment;
 import com.team.donation.databinding.ActivityOrganizerMainBinding;
 
 import static com.team.donation.Utils.GlobalVariables.userID;
@@ -38,11 +44,13 @@ public class OrganizerMainActivity extends AppCompatActivity {
     private ActivityOrganizerMainBinding binding;
     private DatabaseReference databaseReference;
     private FirebaseAuth firebaseAuth;
+    private boolean doubleBackToExitPressedOnce;
+    private Context context = OrganizerMainActivity.this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_organizer_main);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_organizer_main);
         databaseReference = FirebaseDatabase.getInstance().getReference();
         firebaseAuth = FirebaseAuth.getInstance();
 
@@ -51,9 +59,9 @@ public class OrganizerMainActivity extends AppCompatActivity {
             @Override
             public void Onresult(String user) {
 
-                if (!user.equals("Active")){
+                if (!user.equals("Active")) {
                     binding.frameLayout.setVisibility(View.GONE);
-                    AlertDialog.Builder builder = new AlertDialog.Builder(OrganizerMainActivity.this,android.R.style.Theme_Black_NoTitleBar_Fullscreen);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(OrganizerMainActivity.this, android.R.style.Theme_Black_NoTitleBar_Fullscreen);
                     builder.setTitle("Unauthorized");
                     builder.setIcon(R.drawable.ic_error_outline_black_24dp);
                     builder.setMessage("Your account has been banned for breaking the policy.");
@@ -75,11 +83,11 @@ public class OrganizerMainActivity extends AppCompatActivity {
         checkUser(new firebaseCallBack() {
             @Override
             public void Onresult(String user) {
-                Log.d("TAG", "Onresult: "+user);
+                Log.d("TAG", "Onresult: " + user);
 
-                if (!user.equals("organization")){
+                if (!user.equals("organization")) {
                     binding.frameLayout.setVisibility(View.GONE);
-                    AlertDialog.Builder builder = new AlertDialog.Builder(OrganizerMainActivity.this,android.R.style.Theme_Black_NoTitleBar_Fullscreen);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(OrganizerMainActivity.this, android.R.style.Theme_Black_NoTitleBar_Fullscreen);
                     builder.setTitle("Unauthorized");
                     builder.setIcon(R.drawable.ic_error_outline_black_24dp);
                     builder.setMessage("You are not authorized in this section.\nPlease select correct user mode and try again.");
@@ -98,36 +106,32 @@ public class OrganizerMainActivity extends AppCompatActivity {
         });
 
 
-
-
-
-        replaceFragment(new MoneyFragment());
+        PushFragment.replaceFragment(context, new MoneyFragment(), "money");
 
         binding.bottomNavBar.addBubbleListener(new OnBubbleClickListener() {
             @Override
             public void onBubbleClick(int i) {
-                Log.d("ERR", "onBubbleClick: "+i);
+                Log.d("ERR", "onBubbleClick: " + i);
 
-                switch (i){
+                switch (i) {
                     case R.id.money:
-                        replaceFragment(new MoneyFragment());
+                        PushFragment.replaceFragment(context, new MoneyFragment(), "money");
                         break;
                     case R.id.accessories:
-                        replaceFragment(new AccessoriesFragment());
+                        PushFragment.replaceFragment(context, new AccessoriesFragment(), "acc");
                         break;
 
                     case R.id.own_post:
-                        replaceFragment(new OrgOwnFragment());
+                        PushFragment.replaceFragment(context, new OrgOwnFragment(), "own");
                         break;
                     case R.id.user_profile:
-                        replaceFragment(new UserFragment());
+                        PushFragment.replaceFragment(context, new UserFragment(), "profile");
                         break;
                     case R.id.about:
-                        replaceFragment(new AboutUsFragment());
+                        PushFragment.replaceFragment(context, new AboutUsFragment(), "about");
                         break;
 
-                        default: // DashBoard Fragment
-                            replaceFragment(new MoneyFragment());
+                    default: // DashBoard Fragment
                 }
 
             }
@@ -144,8 +148,8 @@ public class OrganizerMainActivity extends AppCompatActivity {
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String user= dataSnapshot.getValue(String.class);
-                Log.d("TAG", "onDataChange: "+user);
+                String user = dataSnapshot.getValue(String.class);
+                Log.d("TAG", "onDataChange: " + user);
                 firebaseCallBack.Onresult(user);
             }
 
@@ -166,8 +170,8 @@ public class OrganizerMainActivity extends AppCompatActivity {
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String user= dataSnapshot.getValue(String.class);
-                Log.d("TAG", "onDataChange: "+user);
+                String user = dataSnapshot.getValue(String.class);
+                Log.d("TAG", "onDataChange: " + user);
                 firebaseCallBack.Onresult(user);
             }
 
@@ -179,51 +183,49 @@ public class OrganizerMainActivity extends AppCompatActivity {
 
     }
 
-    public void replaceFragment(Fragment fragment) {
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.replace(R.id.frame_layout, fragment);
-        ft.addToBackStack(null);
-        ft.commit();
+
+    private interface firebaseCallBack {
+        void Onresult(String user);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        doubleBackToExitPressedOnce = true;
     }
 
     @Override
     public void onBackPressed() {
 
-        int count = getSupportFragmentManager().getBackStackEntryCount();
+        final FragmentManager fm = getSupportFragmentManager();
+        Fragment contentFragment = getSupportFragmentManager().getFragments()
+                .get(getSupportFragmentManager().getFragments().size() - 1);
 
-        if (count == 1) {
-            super.onBackPressed();
-            //additional code
+        if (contentFragment instanceof MoneyFragment ||
+                contentFragment instanceof AccessoriesFragment ||
+                contentFragment instanceof OrgOwnFragment ||
+                contentFragment instanceof UserFragment ||
+                contentFragment instanceof AboutUsFragment ||
+                 fm.getBackStackEntryCount() == 0) {
 
-            new AlertDialog.Builder(this)
-                    .setIcon(android.R.drawable.ic_dialog_alert)
-                    .setTitle("Exit Charitable")
-                    .setMessage("Are you sure you want to exit?")
-                    .setPositiveButton("Yes", new DialogInterface.OnClickListener()
-                    {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            finish();
-                        }
+            if (doubleBackToExitPressedOnce) {
+                this.doubleBackToExitPressedOnce = false;
+                new Handler().postDelayed(new Runnable() {
 
-                    })
-                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            replaceFragment(new MoneyFragment());
-                        }
-                    })
-                    .setCancelable(false)
-                    .show();
-
-        } else {
-            getSupportFragmentManager().popBackStack();
+                    @Override
+                    public void run() {
+                        doubleBackToExitPressedOnce = true;
+                    }
+                }, 2000);
+                Toast.makeText(this, "Press again to exit", Toast.LENGTH_SHORT).show();
+            } else {
+                finish();
+            }
+        } else if (fm.getBackStackEntryCount() > 0) {
+            fm.popBackStack();
+            if (fm.getBackStackEntryCount() != 0) {
+                return;
+            }
         }
-
-    }
-
-    private interface firebaseCallBack{
-        void Onresult(String user);
     }
 }

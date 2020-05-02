@@ -30,6 +30,7 @@ import com.team.donation.Fragment.AddAccessoriesFragment;
 import com.team.donation.Fragment.AddMoneyFragment;
 import com.team.donation.Model.Accessories;
 import com.team.donation.R;
+import com.team.donation.Utils.PushFragment;
 import com.team.donation.databinding.FragmentAccessoriesBinding;
 
 import java.util.ArrayList;
@@ -72,13 +73,7 @@ public class AccessoriesFragment extends Fragment {
         binding.addNew.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                AddAccessoriesFragment clientDetailsFragment = new AddAccessoriesFragment();
-                ft.replace(R.id.frame_layout, clientDetailsFragment);
-                ft.addToBackStack(null);
-                ft.commit();
-
+                PushFragment.replaceFragment(context,new AddAccessoriesFragment(),"AddAcc");
             }
         });
 

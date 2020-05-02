@@ -8,10 +8,13 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.fxn.OnBubbleClickListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,6 +24,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.team.donation.Fragment.AddMoneyFragment;
+import com.team.donation.Fragment.AdminFragment.AllPostFragment;
 import com.team.donation.Fragment.BottomBarFragments.AboutUsFragment;
 import com.team.donation.Fragment.BottomBarFragments.AccessoriesFragment;
 import com.team.donation.Fragment.BottomBarFragments.MoneyFragment;
@@ -28,6 +33,7 @@ import com.team.donation.Fragment.BottomBarFragments.OrgOwnFragment;
 import com.team.donation.Fragment.BottomBarFragments.UserFragment;
 import com.team.donation.R;
 import com.team.donation.Utils.Logout;
+import com.team.donation.Utils.PushFragment;
 import com.team.donation.databinding.ActivityUserMainBinding;
 
 public class UserMainActivity extends AppCompatActivity {
@@ -35,6 +41,8 @@ public class UserMainActivity extends AppCompatActivity {
     private ActivityUserMainBinding binding;
     private DatabaseReference databaseReference;
     private FirebaseAuth firebaseAuth;
+    private boolean doubleBackToExitPressedOnce;
+    private Context context = UserMainActivity.this;
 
 
     @Override
@@ -73,79 +81,37 @@ public class UserMainActivity extends AppCompatActivity {
             }
         });
 
-
-
-        replaceFragment(new MoneyFragment());
+        PushFragment.replaceFragment(context, new MoneyFragment(), "money");
         binding.bottomNavBar.addBubbleListener(new OnBubbleClickListener() {
             @Override
             public void onBubbleClick(int i) {
                 Log.d("ERR", "onBubbleClick: "+i);
 
-                switch (i){
+                switch (i) {
                     case R.id.money:
-                        replaceFragment(new MoneyFragment());
+                        PushFragment.replaceFragment(context, new MoneyFragment(), "money");
                         break;
                     case R.id.accessories:
-                        replaceFragment(new AccessoriesFragment());
+                        PushFragment.replaceFragment(context, new AccessoriesFragment(), "acc");
                         break;
 
                     case R.id.own_post:
-                        replaceFragment(new OrgOwnFragment());
+                        PushFragment.replaceFragment(context, new OrgOwnFragment(), "own");
                         break;
                     case R.id.user_profile:
-                        replaceFragment(new UserFragment());
+                        PushFragment.replaceFragment(context, new UserFragment(), "profile");
                         break;
                     case R.id.about:
-                        replaceFragment(new AboutUsFragment());
+                        PushFragment.replaceFragment(context, new AboutUsFragment(), "about");
                         break;
 
                     default: // DashBoard Fragment
-                        replaceFragment(new MoneyFragment());
                 }
 
             }
         });
 
     }
-
-    public void replaceFragment(Fragment fragment) {
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.replace(R.id.frame_layout, fragment);
-        ft.addToBackStack(null);
-        ft.commit();
-    }
-
-    @Override
-    public void onBackPressed() {
-
-        int count = getSupportFragmentManager().getBackStackEntryCount();
-
-        if (count == 1) {
-            super.onBackPressed();
-            //additional code
-
-            new AlertDialog.Builder(this)
-                    .setIcon(android.R.drawable.ic_dialog_alert)
-                    .setTitle("Closing Activity")
-                    .setMessage("Are you sure you want to close this activity?")
-                    .setPositiveButton("Yes", new DialogInterface.OnClickListener()
-                    {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            finish();
-                        }
-
-                    })
-                    .setNegativeButton("No", null)
-                    .show();
-
-        } else {
-            getSupportFragmentManager().popBackStack();
-        }
-
-    }
-
 
     private void checkUser(final UserMainActivity.firebaseCallBack firebaseCallBack) {
 
@@ -171,6 +137,48 @@ public class UserMainActivity extends AppCompatActivity {
 
     private interface firebaseCallBack{
         void Onresult(String user);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        doubleBackToExitPressedOnce = true;
+    }
+
+
+    @Override
+    public void onBackPressed() {
+
+        final FragmentManager fm = getSupportFragmentManager();
+        Fragment contentFragment = getSupportFragmentManager().getFragments()
+                .get(getSupportFragmentManager().getFragments().size() - 1);
+
+        if (contentFragment instanceof MoneyFragment ||
+                contentFragment instanceof AccessoriesFragment ||
+                contentFragment instanceof OrgOwnFragment ||
+                contentFragment instanceof UserFragment ||
+                contentFragment instanceof AboutUsFragment ||
+                fm.getBackStackEntryCount() == 0) {
+
+            if (doubleBackToExitPressedOnce) {
+                this.doubleBackToExitPressedOnce = false;
+                new Handler().postDelayed(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        doubleBackToExitPressedOnce = true;
+                    }
+                }, 2000);
+                Toast.makeText(this, "Press again to exit", Toast.LENGTH_SHORT).show();
+            } else {
+                finish();
+            }
+        } else if (fm.getBackStackEntryCount() > 0) {
+            fm.popBackStack();
+            if (fm.getBackStackEntryCount() != 0) {
+                return;
+            }
+        }
     }
 
 
