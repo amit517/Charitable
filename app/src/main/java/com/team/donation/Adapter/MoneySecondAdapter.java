@@ -51,7 +51,7 @@ public class MoneySecondAdapter extends RecyclerView.Adapter<MoneySecondAdapter.
 
         holder.askedAmmount.setText(amount);
         holder.dateMoney.setText(money.getPostedDate());
-        holder.post_creator.append(money.getOrganizationName());
+        holder.post_creator.setText(money.getOrganizationName());
         holder.description.setText(money.getDescription());
         holder.donateNow.setOnClickListener(new View.OnClickListener() {
             @Override

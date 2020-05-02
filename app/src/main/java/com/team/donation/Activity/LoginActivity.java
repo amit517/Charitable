@@ -173,11 +173,6 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private void goToMain() {
-        startActivity(new Intent(LoginActivity.this, MainActivity.class)
-                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK));
-    }
-
     private boolean checkField(String teamID, String teamPassword) {
 
         if(teamID.isEmpty() || teamPassword.isEmpty())
