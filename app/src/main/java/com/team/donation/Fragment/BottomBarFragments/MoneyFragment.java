@@ -53,7 +53,9 @@ public class MoneyFragment extends Fragment {
     private ProgressDialog progressDialog;
 
     private ArrayList<Money> moneyArrayList;
+    private ArrayList<Money> archiveMoneyArrayList;
     private MoneySecondAdapter adapter;
+    private MoneySecondAdapter adapter2;
 
 
     public MoneyFragment() {
@@ -109,11 +111,15 @@ public class MoneyFragment extends Fragment {
                         if (money.isEnabled()){
                             moneyArrayList.add(money);
                         }
+                        else {
+                            archiveMoneyArrayList.add(money);
+                        }
                         Log.d("TAG", "onDataChange: "+dataSnapshot);
 
                     }
                     Log.d("TAG", "onDataChange: "+moneyArrayList.size());
                     adapter.notifyDataSetChanged();
+                    adapter2.notifyDataSetChanged();
                     binding.animationView.setVisibility(View.GONE);
 
 
@@ -139,6 +145,13 @@ public class MoneyFragment extends Fragment {
         binding.moneyRV.setLayoutManager(mLayoutManager);
         binding.moneyRV.setAdapter(adapter);
 
+        adapter2 = new MoneySecondAdapter(context,archiveMoneyArrayList,"archive");
+        LinearLayoutManager mLayoutManager2 = new LinearLayoutManager(context);
+        mLayoutManager2.setReverseLayout(true);
+        mLayoutManager2.setStackFromEnd(true);
+        binding.accRV.setLayoutManager(mLayoutManager2);
+        binding.accRV.setAdapter(adapter2);
+
     }
 
     private void init() {
@@ -149,6 +162,7 @@ public class MoneyFragment extends Fragment {
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Please wait...");
         moneyArrayList = new ArrayList<>();
+        archiveMoneyArrayList = new ArrayList<>();
 
     }
 

@@ -56,7 +56,14 @@ public class MoneySecondAdapter extends RecyclerView.Adapter<MoneySecondAdapter.
             holder.delete.setVisibility(View.VISIBLE);
         }
 
-        holder.askedAmmount.setText(amount);
+        if (type.equals("archive") || type.equals("admin")){
+            holder.askedAmmount.setText(String.valueOf(money.getFixedAmount()));
+            holder.askedAmmount.setTextColor(context.getResources().getColor(R.color.gray2));
+        }else {
+            holder.askedAmmount.setText(amount);
+        }
+
+
         holder.dateMoney.setText(money.getPostedDate());
         holder.post_creator.setText(money.getOrganizationName());
         holder.description.setText(money.getDescription());
@@ -106,10 +113,15 @@ public class MoneySecondAdapter extends RecyclerView.Adapter<MoneySecondAdapter.
                 .resize(600,600)
                 .into(holder.moneyImage);
 
-        if (position%2 == 0) {
-            holder.moneyRoot.setBackgroundColor(ContextCompat.getColor(context, R.color.light_blue));
-        } else {
-            holder.moneyRoot.setBackgroundColor(ContextCompat.getColor(context, R.color.light_green));
+        if (type.equals("archive")){
+            holder.moneyRoot.setBackgroundColor(ContextCompat.getColor(context, R.color.gray));
+            holder.donateNow.setVisibility(View.GONE);
+        }else {
+            if (position%2 == 0) {
+                holder.moneyRoot.setBackgroundColor(ContextCompat.getColor(context, R.color.light_blue));
+            } else {
+                holder.moneyRoot.setBackgroundColor(ContextCompat.getColor(context, R.color.light_green));
+            }
         }
     }
 

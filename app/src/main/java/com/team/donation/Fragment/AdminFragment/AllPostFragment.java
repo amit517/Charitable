@@ -182,10 +182,8 @@ public class AllPostFragment extends Fragment {
                         data.getChildren().equals(Transection.class);
 
                         Money money = data.getValue(Money.class);
+                        moneyArrayList.add(money);
 
-                        if (money.isEnabled()){
-                            moneyArrayList.add(money);
-                        }
                         Log.d("TAG", "onDataChange: "+dataSnapshot);
 
                     }

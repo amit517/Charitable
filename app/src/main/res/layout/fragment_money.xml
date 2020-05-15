@@ -8,8 +8,6 @@
         tools:context=".Fragment.BottomBarFragments.MoneyFragment">
 
 
-
-
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -20,19 +18,76 @@
             android:layout_marginRight="30dp"
             android:src="@drawable/ic_add_black_24dp"/>
 
-        <com.airbnb.lottie.LottieAnimationView
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:lottie_fileName="19134-loading.json"
-            app:lottie_loop="true"
-            app:lottie_autoPlay="true"
-            android:id="@+id/animationView"
-            />
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/moneyRV"/>
+                <com.airbnb.lottie.LottieAnimationView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:lottie_fileName="19134-loading.json"
+                    app:lottie_loop="true"
+                    app:lottie_autoPlay="true"
+                    android:id="@+id/animationView"
+                    android:visibility="gone"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Live Posts"
+                    android:layout_marginTop="10dp"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:textColor="@color/red"
+                    />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/moneyRV"/>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:id="@+id/layout"
+
+                    >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="Archive story"
+                        android:textSize="18sp"
+                        android:textColor="@android:color/tertiary_text_dark"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        />
+
+
+
+                </LinearLayout>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:id="@+id/accRV"/>
+
+
+            </LinearLayout>
+
+        </ScrollView>
+
+
+
 
     </RelativeLayout>
 
