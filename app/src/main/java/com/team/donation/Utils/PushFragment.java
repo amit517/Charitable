@@ -16,11 +16,8 @@ import java.util.Objects;
  */
 public class PushFragment {
 
-    public static Fragment contentFragment;
-    public static String tag;
-
     public static void replaceFragment(Context context, Fragment fragment, String tag) {
-        PushFragment.tag = tag;
+
         FragmentManager fm = ((FragmentActivity)context).getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
 

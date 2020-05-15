@@ -8,6 +8,7 @@
         android:layout_height="match_parent"
         tools:context=".Fragment.AddMoneyFragment"
         android:orientation="vertical"
+        android:gravity="center"
         >
 
 
@@ -18,9 +19,65 @@
 
             <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_gravity="center"
+                >
+
+                <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/productImage"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_add_a_photo_black_24dp"
+                    app:civ_border_color="#FF000000"
+                    app:civ_border_width="2dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="30dp"
+
+                    />
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card10"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginRight="30dp"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="8dp"
+                    android:layout_below="@id/productImage"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="5dp"
+                            android:text="Add a title :"
+                            android:textColor="@color/black_alfa_70"
+                            android:textSize="15sp" />
 
 
+                        <EditText
+                            android:id="@+id/product_title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="-5dp"
+                            android:layout_marginTop="10dp"
+                            android:hint="Title"
+                            android:padding="10dp"
+                            android:singleLine="true"
+                            android:inputType="textCapWords"
+                            android:imeOptions="actionNext"/>
+                    </LinearLayout>
+
+
+                </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/card1"
@@ -30,7 +87,8 @@
                 android:layout_marginTop="30dp"
                 android:layout_marginRight="30dp"
                 app:cardCornerRadius="5dp"
-                app:cardElevation="8dp">
+                app:cardElevation="8dp"
+                android:layout_below="@+id/card10">
 
                 <LinearLayout
                     android:layout_width="match_parent"

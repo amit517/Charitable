@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/current_work_card_view"
+            android:id="@+id/moneyRoot"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
@@ -65,9 +65,10 @@
                         android:text="Want tp share Books"
                         android:id="@+id/productTitle"
                         android:padding="5dp"
-                        android:textColor="@color/black_alfa_70"
+                        android:fontFamily="serif-monospace"
+                        android:textColor="@color/material_on_background_emphasis_high_type"
+                        android:textSize="22sp"
                         android:textStyle="bold"
-                        android:textSize="18sp"
                         />
 
                     <TextView
@@ -175,14 +176,23 @@
                         android:padding="5dp"/>
                 </LinearLayout>
 
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/image_border"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                >
                 <ImageView
+                    android:id="@+id/accProductimage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/accProductimage"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"
                     android:layout_gravity="center"
+                    android:layout_margin="5dp"
                     />
+            </LinearLayout>
 
             </LinearLayout>
 

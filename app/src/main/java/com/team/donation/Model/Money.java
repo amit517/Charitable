@@ -17,12 +17,15 @@ public class Money implements Parcelable {
     private String organizationName;
     private String bkashNumber;
     private String description;
+    private String productImageLink;
+    private double fixedAmount;
+    private double progressBar;
+    private String title;
 
     public Money() {
     }
 
-
-    public Money(String userId, double askedAmount, String postedDate, boolean isEnabled, String organizationName, String bkashNumber, String description) {
+    public Money(String userId, double askedAmount, String postedDate, boolean isEnabled, String organizationName, String bkashNumber, String description, String productImageLink, double fixedAmount, String title) {
         this.userId = userId;
         this.askedAmount = askedAmount;
         this.postedDate = postedDate;
@@ -30,9 +33,12 @@ public class Money implements Parcelable {
         this.organizationName = organizationName;
         this.bkashNumber = bkashNumber;
         this.description = description;
+        this.productImageLink = productImageLink;
+        this.fixedAmount = fixedAmount;
+        this.title = title;
     }
 
-    public Money(String uniqueID, String userId, double askedAmount, String postedDate, boolean isEnabled, String organizationName, String bkashNumber, String description) {
+    public Money(String uniqueID, String userId, double askedAmount, String postedDate, boolean isEnabled, String organizationName, String bkashNumber, String description, String productImageLink, double fixedAmount, double progressBar, String title) {
         this.uniqueID = uniqueID;
         this.userId = userId;
         this.askedAmount = askedAmount;
@@ -41,6 +47,10 @@ public class Money implements Parcelable {
         this.organizationName = organizationName;
         this.bkashNumber = bkashNumber;
         this.description = description;
+        this.productImageLink = productImageLink;
+        this.fixedAmount = fixedAmount;
+        this.progressBar = progressBar;
+        this.title = title;
     }
 
     protected Money(Parcel in) {
@@ -52,6 +62,10 @@ public class Money implements Parcelable {
         organizationName = in.readString();
         bkashNumber = in.readString();
         description = in.readString();
+        productImageLink = in.readString();
+        fixedAmount = in.readDouble();
+        progressBar = in.readDouble();
+        title = in.readString();
     }
 
     public static final Creator<Money> CREATOR = new Creator<Money>() {
@@ -130,6 +144,38 @@ public class Money implements Parcelable {
         this.description = description;
     }
 
+    public String getProductImageLink() {
+        return productImageLink;
+    }
+
+    public void setProductImageLink(String productImageLink) {
+        this.productImageLink = productImageLink;
+    }
+
+    public double getFixedAmount() {
+        return fixedAmount;
+    }
+
+    public void setFixedAmount(double fixedAmount) {
+        this.fixedAmount = fixedAmount;
+    }
+
+    public double getProgressBar() {
+        return progressBar;
+    }
+
+    public void setProgressBar(double progressBar) {
+        this.progressBar = progressBar;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -145,5 +191,9 @@ public class Money implements Parcelable {
         dest.writeString(organizationName);
         dest.writeString(bkashNumber);
         dest.writeString(description);
+        dest.writeString(productImageLink);
+        dest.writeDouble(fixedAmount);
+        dest.writeDouble(progressBar);
+        dest.writeString(title);
     }
 }

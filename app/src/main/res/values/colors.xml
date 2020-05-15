@@ -7,4 +7,6 @@
     <color name="black_alfa_70">#b3000000</color>
     <color name="red">#e53935</color>
     <color name="green">#2e7d32</color>
+    <color name="light_blue">#f7f7f7</color>
+    <color name="light_green">#e0f7fa</color>
 </resources>

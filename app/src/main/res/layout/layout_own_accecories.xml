@@ -29,30 +29,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                >
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Product Title :"
-                    android:textSize="15sp"
-                    android:textColor="@color/black_alfa_70"
-                    />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Date"
-                    android:textColor="@color/black_alfa_70"
-                    />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_marginTop="5dp"
                 >
 
@@ -62,7 +38,7 @@
                     android:layout_weight="1"
                     android:text="Want tp share Books"
                     android:id="@+id/productTitle11"
-                    android:textSize="15sp"
+                    android:textSize="18sp"
                     android:textStyle="bold"
                     android:textColor="@color/black_alfa_70"
                     />
@@ -88,15 +64,22 @@
                 android:textColor="@color/black_alfa_70"/>
 
 
-            <ImageView
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/accProductimage11"
+                android:layout_gravity="center"
+                android:background="@drawable/image_border"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
-                android:layout_gravity="center"
-
-                />
+                >
+                <ImageView
+                    android:id="@+id/accProductimage11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    />
+            </LinearLayout>
 
             <Button
                 android:id="@+id/acc_delete_button"

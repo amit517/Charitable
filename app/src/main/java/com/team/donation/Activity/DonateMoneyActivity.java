@@ -102,16 +102,20 @@ public class DonateMoneyActivity extends AppCompatActivity {
                                 final double currentAmount = money.getAskedAmount() - amount;
                                 if (currentAmount == 0){ // Have to disable the section and set the value to FB
 
-                                    DatabaseReference reference = databaseReference.child("Money").child(money.getUniqueID()).child("enabled");
-                                    reference.setValue(false).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    DatabaseReference reference2 = databaseReference.child("Money").child(money.getUniqueID()).child("enabled");
+                                    reference2.setValue(false).addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
 
-                                            DatabaseReference reference = databaseReference.child("Money").child(money.getUniqueID()).child("askedAmount");
-                                            reference.setValue(currentAmount).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            DatabaseReference reference1 = databaseReference.child("Money").child(money.getUniqueID()).child("progressBar");
+                                            reference1.setValue(money.getFixedAmount()).addOnSuccessListener(new OnSuccessListener<Void>() {
                                                 @Override
                                                 public void onSuccess(Void aVoid) {
-                                                                                progressDialog.dismiss();
+                                                    DatabaseReference reference = databaseReference.child("Money").child(money.getUniqueID()).child("askedAmount");
+                                                    reference.setValue(currentAmount).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                        @Override
+                                                        public void onSuccess(Void aVoid) {
+                                                            progressDialog.dismiss();
                                                             AlertDialog.Builder builder = new AlertDialog.Builder(DonateMoneyActivity.this);
                                                             builder.setTitle("Success");
                                                             builder.setMessage("Your Money has been successfully added.");
@@ -124,6 +128,8 @@ public class DonateMoneyActivity extends AppCompatActivity {
                                                                     .setCancelable(false);
                                                             AlertDialog alert = builder.create();
                                                             alert.show();
+                                                        }
+                                                    });
                                                 }
                                             });
 
@@ -134,26 +140,31 @@ public class DonateMoneyActivity extends AppCompatActivity {
 
                                 else { // Update the value in firebase
 
-                                    DatabaseReference reference = databaseReference.child("Money").child(money.getUniqueID()).child("askedAmount");
-                                    reference.setValue(currentAmount).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    DatabaseReference reference1 = databaseReference.child("Money").child(money.getUniqueID()).child("progressBar");
+                                    reference1.setValue(money.getProgressBar()+amount).addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
-                                            progressDialog.dismiss();
-                                            AlertDialog.Builder builder = new AlertDialog.Builder(DonateMoneyActivity.this);
-                                            builder.setTitle("Success");
-                                            builder.setMessage("Your Money has been successfully added.");
-                                            builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                                                public void onClick(DialogInterface dialog, int id) {
+                                            DatabaseReference reference = databaseReference.child("Money").child(money.getUniqueID()).child("askedAmount");
+                                            reference.setValue(currentAmount).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
                                                     progressDialog.dismiss();
-                                                    onBackPressed();
+                                                    AlertDialog.Builder builder = new AlertDialog.Builder(DonateMoneyActivity.this);
+                                                    builder.setTitle("Success");
+                                                    builder.setMessage("Your Money has been successfully added.");
+                                                    builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                                        public void onClick(DialogInterface dialog, int id) {
+                                                            progressDialog.dismiss();
+                                                            onBackPressed();
+                                                        }
+                                                    })
+                                                            .setCancelable(false);
+                                                    AlertDialog alert = builder.create();
+                                                    alert.show();
                                                 }
-                                            })
-                                                    .setCancelable(false);
-                                            AlertDialog alert = builder.create();
-                                            alert.show();
+                                            });
                                         }
                                     });
-
 
                                 }
 
@@ -173,6 +184,9 @@ public class DonateMoneyActivity extends AppCompatActivity {
                         Toast.makeText(DonateMoneyActivity.this, "No network Available", Toast.LENGTH_SHORT).show();
                     }
 
+                }
+                else {
+                    Toast.makeText(DonateMoneyActivity.this, "Donation exceed limit!", Toast.LENGTH_SHORT).show();
                 }
             }
         });

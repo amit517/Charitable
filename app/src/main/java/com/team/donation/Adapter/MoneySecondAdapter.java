@@ -2,17 +2,23 @@ package com.team.donation.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
 import com.team.donation.Activity.DonateMoneyActivity;
 import com.team.donation.Model.Money;
 import com.team.donation.R;
@@ -47,6 +53,7 @@ public class MoneySecondAdapter extends RecyclerView.Adapter<MoneySecondAdapter.
         if (type.equals("admin")){
             holder.donateNow.setVisibility(View.GONE);
             holder.report1.setVisibility(View.GONE);
+            holder.delete.setVisibility(View.VISIBLE);
         }
 
         holder.askedAmmount.setText(amount);
@@ -83,6 +90,27 @@ public class MoneySecondAdapter extends RecyclerView.Adapter<MoneySecondAdapter.
 
             }
         });
+
+        holder.progress_bar.setMax((int) money.getFixedAmount());
+        Log.d("TAG", "onBindViewHolder: "+money.getAskedAmount());
+        Log.d("TAG", "onBindViewHolder: "+money.getFixedAmount());
+        Log.d("TAG", "onBindViewHolder: "+money.getProgressBar());
+        holder.progress_bar.setProgress((int) money.getProgressBar());
+        holder.progress_bar.setProgressDrawable(context.getResources().getDrawable(R.drawable.prograssbar));
+        Log.d("TAG", "onBindViewHolder: "+(int) Math.abs(money.getFixedAmount() - money.getAskedAmount()));
+        holder.moneyTitle.setText(money.getTitle());
+        String  img_url = money.getProductImageLink();
+        Picasso
+                .get()
+                .load(img_url)
+                .resize(600,600)
+                .into(holder.moneyImage);
+
+        if (position%2 == 0) {
+            holder.moneyRoot.setBackgroundColor(ContextCompat.getColor(context, R.color.light_blue));
+        } else {
+            holder.moneyRoot.setBackgroundColor(ContextCompat.getColor(context, R.color.light_green));
+        }
     }
 
     @Override
@@ -92,20 +120,25 @@ public class MoneySecondAdapter extends RecyclerView.Adapter<MoneySecondAdapter.
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView askedAmmount,post_creator,dateMoney,description;
-        Button donateNow;
-        ImageView report1;
+        TextView askedAmmount,post_creator,dateMoney,description,moneyTitle;
+        Button donateNow,delete;
+        ImageView report1,moneyImage;
+        CardView moneyRoot;
+        ProgressBar progress_bar;
         
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-
             askedAmmount = itemView.findViewById(R.id.askedAmmount);
             post_creator = itemView.findViewById(R.id.post_creator);
             dateMoney = itemView.findViewById(R.id.dateMoney);
             donateNow = itemView.findViewById(R.id.donateNow);
             description = itemView.findViewById(R.id.description);
             report1 = itemView.findViewById(R.id.report1);
-
+            delete = itemView.findViewById(R.id.delete);
+            moneyImage = itemView.findViewById(R.id.moneyImage);
+            moneyRoot = itemView.findViewById(R.id.moneyRoot);
+            progress_bar = itemView.findViewById(R.id.progress_bar);
+            moneyTitle = itemView.findViewById(R.id.moneyTitle);
         }
     }
 

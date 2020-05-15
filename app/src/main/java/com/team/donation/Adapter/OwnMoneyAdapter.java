@@ -6,12 +6,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
 import com.team.donation.Activity.SeeDonationActivity;
 import com.team.donation.Model.Money;
 import com.team.donation.R;
@@ -57,7 +59,13 @@ public class OwnMoneyAdapter extends RecyclerView.Adapter<OwnMoneyAdapter.ViewHo
 
             }
         });
-        
+        holder.ownTitle.setText(money.getTitle());
+        String  img_url = money.getProductImageLink();
+        Picasso
+                .get()
+                .load(img_url)
+                .resize(600,600)
+                .into(holder.moneyImage1);
     }
 
     @Override
@@ -67,8 +75,9 @@ public class OwnMoneyAdapter extends RecyclerView.Adapter<OwnMoneyAdapter.ViewHo
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView ammountasked,dateMoney11;
+        TextView ammountasked,dateMoney11,ownTitle;
         Button seeAllDonation;
+        ImageView moneyImage1;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -76,7 +85,9 @@ public class OwnMoneyAdapter extends RecyclerView.Adapter<OwnMoneyAdapter.ViewHo
             ammountasked = itemView.findViewById(R.id.ammountasked);
             dateMoney11 = itemView.findViewById(R.id.dateMoney11);
             seeAllDonation = itemView.findViewById(R.id.seeAllDonation);
-            
+            ownTitle = itemView.findViewById(R.id.ownTitle);
+            moneyImage1 = itemView.findViewById(R.id.moneyImage1);
+
 
 
         }

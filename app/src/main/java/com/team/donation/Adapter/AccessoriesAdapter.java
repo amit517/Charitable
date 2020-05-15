@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -96,6 +97,12 @@ public class AccessoriesAdapter extends RecyclerView.Adapter<AccessoriesAdapter.
                 }
             });
 
+        if (position%2 == 0) {
+            holder.moneyRoot.setBackgroundColor(ContextCompat.getColor(context, R.color.light_blue));
+        } else {
+            holder.moneyRoot.setBackgroundColor(ContextCompat.getColor(context, R.color.light_green));
+        }
+
         /*holder.report.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -125,6 +132,7 @@ public class AccessoriesAdapter extends RecyclerView.Adapter<AccessoriesAdapter.
         TextView postType,productTitle,date,creatorName,type,productDescription,phoneNumber,locationTv;
         ImageButton callBtn;
         ImageView accProductimage,report;
+        CardView moneyRoot;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -139,6 +147,7 @@ public class AccessoriesAdapter extends RecyclerView.Adapter<AccessoriesAdapter.
             locationTv = itemView.findViewById(R.id.locationTv);
             accProductimage = itemView.findViewById(R.id.accProductimage);
             callBtn = itemView.findViewById(R.id.callBtn);
+            moneyRoot = itemView.findViewById(R.id.moneyRoot);
             //report = itemView.findViewById(R.id.report);
 
         }
