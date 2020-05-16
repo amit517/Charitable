@@ -43,7 +43,7 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MoneyFragment extends Fragment {
+public class MoneyFragment extends Fragment implements MoneySecondAdapter.ClickListener {
 
     private FragmentMoneyBinding binding;
     private Context context;
@@ -136,7 +136,7 @@ public class MoneyFragment extends Fragment {
 
     private void configureRV() {
 
-        adapter = new MoneySecondAdapter(context,moneyArrayList,"org");
+        adapter = new MoneySecondAdapter(context,moneyArrayList,"org",this);
 
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(context);
         mLayoutManager.setReverseLayout(true);
@@ -145,7 +145,7 @@ public class MoneyFragment extends Fragment {
         binding.moneyRV.setLayoutManager(mLayoutManager);
         binding.moneyRV.setAdapter(adapter);
 
-        adapter2 = new MoneySecondAdapter(context,archiveMoneyArrayList,"archive");
+        adapter2 = new MoneySecondAdapter(context,archiveMoneyArrayList,"archive",this);
         LinearLayoutManager mLayoutManager2 = new LinearLayoutManager(context);
         mLayoutManager2.setReverseLayout(true);
         mLayoutManager2.setStackFromEnd(true);
@@ -185,5 +185,10 @@ public class MoneyFragment extends Fragment {
             default:
                 // Amar Mathay Bari Daw :P
         }
+    }
+
+    @Override
+    public void OnDeleteClicked(int position) {
+
     }
 }

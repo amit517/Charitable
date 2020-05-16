@@ -8,28 +8,146 @@
     tools:context=".Fragment.BottomBarFragments.UserFragment"
     android:background="#465362">
 
-    <ImageView android:src="@drawable/bannar"
-        android:layout_width="wrap_content"
-        android:layout_height="102dp"
-        android:layout_marginBottom="60dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="30dp"
-        />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_centerInParent="true">
-
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp">
         <ImageView
-            android:layout_width="200dp"
-            android:layout_height="200dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:src="@drawable/ic_account_circle_black_24dp"
             android:tint="@color/colorPrimary"/>
 
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_margin="15dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:id="@+id/mainContainer">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/userObject"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/userNameSection"
+                >
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/firstNameET"
+                    android:hint="First Name"
+                    android:inputType="textCapWords"
+                    android:singleLine="true"
+                    android:layout_weight=".5"
+                    android:imeOptions="actionNext"
+                    android:textColor="@color/white"
+                    />
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/lastNameET"
+                    android:hint="Last Name"
+                    android:inputType="textCapWords"
+                    android:singleLine="true"
+                    android:layout_weight=".5"
+                    android:imeOptions="actionNext"
+                    android:textColor="@color/white"/>
+            </LinearLayout>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/orgNameET"
+                android:hint="Organization Name"
+                android:inputType="textCapWords"
+                android:singleLine="true"
+                android:imeOptions="actionNext"
+                android:textColor="@color/white"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/nidET"
+                android:hint="NID number"
+                android:maxLength="16"
+                android:singleLine="true"
+                android:inputType="number"
+                android:imeOptions="actionNext"
+                android:textColor="@color/white"
+                />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/phoneET"
+                android:hint="Phone Number"
+                android:inputType="phone"
+                android:singleLine="true"
+                android:maxLength="11"
+                android:text=""
+                android:imeOptions="actionNext"
+                android:textColor="@color/white"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/addressET"
+                android:hint="Address"
+                android:inputType="textCapSentences"
+                android:imeOptions="actionNext"
+                android:textColor="@color/white"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/adminSection">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Admin"
+                android:textSize="35dp"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:fontFamily="serif-monospace"
+                android:visibility="gone"/>
+
+
+        </LinearLayout>
+
+
 
     </LinearLayout>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/updateBtn"
+        android:text="Update"
+        android:layout_gravity="right"
+        android:textAllCaps="false"
+        android:layout_below="@+id/mainContainer"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        style="?attr/materialButtonOutlinedStyle"
+        android:textColor="#f7f7f7"
+        />
 
     <Button
         android:layout_width="wrap_content"

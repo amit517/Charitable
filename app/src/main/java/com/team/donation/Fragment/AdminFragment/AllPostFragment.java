@@ -2,9 +2,11 @@ package com.team.donation.Fragment.AdminFragment;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -15,7 +17,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -36,7 +42,7 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AllPostFragment extends Fragment {
+public class AllPostFragment extends Fragment implements MoneySecondAdapter.ClickListener {
 
     private FragmentAllPostBinding binding;
     private Context context;
@@ -66,7 +72,7 @@ public class AllPostFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment1
-        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_all_post,container,false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_all_post, container, false);
         init();
         configureRV();
 
@@ -89,25 +95,24 @@ public class AllPostFragment extends Fragment {
         binding.itemTypeSpinner.setAdapter(Spinneradapter);
 
 
-
         binding.itemTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Query query= databaseReference.child("Accessories").orderByChild("productType").equalTo(binding.itemTypeSpinner.getSelectedItem().toString());
-                Log.d("TAG", "onItemSelected: "+binding.itemTypeSpinner.getSelectedItem().toString());
+                Query query = databaseReference.child("Accessories").orderByChild("productType").equalTo(binding.itemTypeSpinner.getSelectedItem().toString());
+                Log.d("TAG", "onItemSelected: " + binding.itemTypeSpinner.getSelectedItem().toString());
 
                 query.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        if (dataSnapshot.exists()){
+                        if (dataSnapshot.exists()) {
                             accessoriesArrayList.clear();
 
-                            for (DataSnapshot data : dataSnapshot.getChildren()){
+                            for (DataSnapshot data : dataSnapshot.getChildren()) {
                                 Accessories accessories = data.getValue(Accessories.class);
                                 accessoriesArrayList.add(accessories);
                             }
-                            Log.d("TAG", "onItemSelected: "+accessoriesArrayList.size());
-                            Log.d("TAG", "onItemSelected: "+accessoriesArrayList.get(0).getCreatorName());
+                            Log.d("TAG", "onItemSelected: " + accessoriesArrayList.size());
+                            Log.d("TAG", "onItemSelected: " + accessoriesArrayList.get(0).getCreatorName());
                         }
 
                         accAdapter.notifyDataSetChanged();
@@ -143,12 +148,12 @@ public class AllPostFragment extends Fragment {
         m2LayoutManager.setReverseLayout(true);
         m2LayoutManager.setStackFromEnd(true);
 
-        adapter = new MoneySecondAdapter(context,moneyArrayList,"admin");
+        adapter = new MoneySecondAdapter(context, moneyArrayList, "admin", this);
         binding.moneyRV.setLayoutManager(mLayoutManager);
         binding.moneyRV.setAdapter(adapter);
 
 
-        accAdapter = new AccessoriesAdapter(context,accessoriesArrayList);
+        accAdapter = new AccessoriesAdapter(context, accessoriesArrayList);
         binding.accRV.setLayoutManager(m2LayoutManager);
         binding.accRV.setAdapter(accAdapter);
 
@@ -174,9 +179,9 @@ public class AllPostFragment extends Fragment {
         userRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
+                if (dataSnapshot.exists()) {
                     moneyArrayList.clear();
-                    for (DataSnapshot data:dataSnapshot.getChildren()
+                    for (DataSnapshot data : dataSnapshot.getChildren()
                     ) {
 
                         data.getChildren().equals(Transection.class);
@@ -184,10 +189,10 @@ public class AllPostFragment extends Fragment {
                         Money money = data.getValue(Money.class);
                         moneyArrayList.add(money);
 
-                        Log.d("TAG", "onDataChange: "+dataSnapshot);
+                        Log.d("TAG", "onDataChange: " + dataSnapshot);
 
                     }
-                    Log.d("TAG", "onDataChange money: "+moneyArrayList.size());
+                    Log.d("TAG", "onDataChange money: " + moneyArrayList.size());
                     adapter.notifyDataSetChanged();
                     binding.animationView.setVisibility(View.GONE);
 
@@ -208,15 +213,15 @@ public class AllPostFragment extends Fragment {
         userRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
+                if (dataSnapshot.exists()) {
                     accessoriesArrayList.clear();
-                    for (DataSnapshot data:dataSnapshot.getChildren()
+                    for (DataSnapshot data : dataSnapshot.getChildren()
                     ) {
                         Accessories accessories = data.getValue(Accessories.class);
                         accessoriesArrayList.add(accessories);
 
                     }
-                    Log.d("TAG", "onDataChange: acc"+accessoriesArrayList.size());
+                    Log.d("TAG", "onDataChange: acc" + accessoriesArrayList.size());
                     accAdapter.notifyDataSetChanged();
                     binding.animationView.setVisibility(View.GONE);
                 }
@@ -228,5 +233,55 @@ public class AllPostFragment extends Fragment {
             }
         });
 
+    }
+
+    @Override
+    public void OnDeleteClicked(final int position) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("Delete!");
+        builder.setMessage("Are you sure you want to delete?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                String key = moneyArrayList.get(position).getUniqueID();
+                Log.d("TAG", "onClick: "+key);
+                databaseReference.child("Money").child(key).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+
+                            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                            builder.setTitle("Success");
+                            builder.setMessage("Successfully Deleted");
+                            builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    adapter.clear(position);
+                                    adapter.notifyDataSetChanged();
+                                }
+                            })
+                                    .setCancelable(false);
+                            AlertDialog alert = builder.create();
+                            alert.show();
+
+                            Toast.makeText(context, "Deleted", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+
+                    }
+                });
+            }
+        })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .setCancelable(false);
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 }

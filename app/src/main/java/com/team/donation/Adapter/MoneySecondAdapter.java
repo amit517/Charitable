@@ -23,6 +23,7 @@ import com.team.donation.Activity.DonateMoneyActivity;
 import com.team.donation.Model.Money;
 import com.team.donation.R;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 
@@ -31,11 +32,13 @@ public class MoneySecondAdapter extends RecyclerView.Adapter<MoneySecondAdapter.
     private Context context;
     private ArrayList<Money> moneyArrayList;
     private String type;
+    private final ClickListener listener;
 
-    public MoneySecondAdapter(Context context, ArrayList<Money> moneyArrayList,String type) {
+    public MoneySecondAdapter(Context context, ArrayList<Money> moneyArrayList, String type, ClickListener listener) {
         this.context = context;
         this.moneyArrayList = moneyArrayList;
-        this.type =type;
+        this.type = type;
+        this.listener = listener;
     }
 
     @NonNull
@@ -46,7 +49,7 @@ public class MoneySecondAdapter extends RecyclerView.Adapter<MoneySecondAdapter.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         final Money money = moneyArrayList.get(position);
         String amount = String.valueOf(money.getAskedAmount());
 
@@ -123,6 +126,13 @@ public class MoneySecondAdapter extends RecyclerView.Adapter<MoneySecondAdapter.
                 holder.moneyRoot.setBackgroundColor(ContextCompat.getColor(context, R.color.light_green));
             }
         }
+
+        holder.delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                holder.listenerRef.get().OnDeleteClicked(position);
+            }
+        });
     }
 
     @Override
@@ -137,7 +147,7 @@ public class MoneySecondAdapter extends RecyclerView.Adapter<MoneySecondAdapter.
         ImageView report1,moneyImage;
         CardView moneyRoot;
         ProgressBar progress_bar;
-        
+        private WeakReference<ClickListener> listenerRef;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             askedAmmount = itemView.findViewById(R.id.askedAmmount);
@@ -151,6 +161,7 @@ public class MoneySecondAdapter extends RecyclerView.Adapter<MoneySecondAdapter.
             moneyRoot = itemView.findViewById(R.id.moneyRoot);
             progress_bar = itemView.findViewById(R.id.progress_bar);
             moneyTitle = itemView.findViewById(R.id.moneyTitle);
+            listenerRef = new WeakReference<>(listener);
         }
     }
 
@@ -163,5 +174,14 @@ public class MoneySecondAdapter extends RecyclerView.Adapter<MoneySecondAdapter.
     public void addAll(ArrayList<Money> list) {
         moneyArrayList.addAll(list);
         notifyDataSetChanged();
+    }
+
+    public interface ClickListener {
+        void OnDeleteClicked(int position);
+    }
+
+    public void clear(int position) {
+        moneyArrayList.remove(position);
+        notifyItemRemoved(position);
     }
 }

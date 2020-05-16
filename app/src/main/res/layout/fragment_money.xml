@@ -34,7 +34,6 @@
                     app:lottie_loop="true"
                     app:lottie_autoPlay="true"
                     android:id="@+id/animationView"
-                    android:visibility="gone"
                     />
 
                 <TextView
@@ -85,10 +84,6 @@
             </LinearLayout>
 
         </ScrollView>
-
-
-
-
     </RelativeLayout>
 
 </layout>
