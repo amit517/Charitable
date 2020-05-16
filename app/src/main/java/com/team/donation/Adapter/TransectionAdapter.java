@@ -40,9 +40,9 @@ public class TransectionAdapter extends RecyclerView.Adapter<TransectionAdapter.
         Transection transection = transectionArrayList.get(position);
 
         String amount = String.valueOf(transection.getAmmount());
-        holder.transectionAmount.append(amount);
-        holder.name.append(transection.getSenderName());
-        holder.transectionID.append(transection.getTransectionID());
+        holder.transectionAmount.setText("Amount : "+amount);
+        holder.name.setText("Sender Name : "+transection.getSenderName());
+        holder.transectionID.setText("Transection ID : "+transection.getTransectionID());
         holder.trandate.setText(transection.getTransectionDate());
 
     }

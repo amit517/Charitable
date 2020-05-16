@@ -13,12 +13,13 @@ public class User {
     private String uniqueId;
     private String accountType;
 
+
     public User() {
     }
 
 
 
-    public User(String firstName, String lastName, String nidNumber, String phoneNumber, String address, String email, String uniqueId, String accountType) {
+  /*  public User(String firstName, String lastName, String nidNumber, String phoneNumber, String address, String email, String uniqueId, String accountType) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.nidNumber = nidNumber;
@@ -27,7 +28,7 @@ public class User {
         this.email = email;
         this.uniqueId = uniqueId;
         this.accountType = accountType;
-    }
+    }*/
 
     public User(String firstName, String lastName, String nidNumber, String phoneNumber, String address, String email, String profileImageUrl, String uniqueId, String accountType) {
         this.firstName = firstName;

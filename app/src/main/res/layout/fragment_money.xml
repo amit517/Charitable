@@ -7,7 +7,6 @@
         android:layout_height="match_parent"
         tools:context=".Fragment.BottomBarFragments.MoneyFragment">
 
-
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -16,11 +15,14 @@
             android:layout_alignParentRight="true"
             android:layout_marginBottom="30dp"
             android:layout_marginRight="30dp"
-            android:src="@drawable/ic_add_black_24dp"/>
+            android:src="@drawable/ic_add_black_24dp"
+            app:backgroundTint="#649d66"
+            />
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_below="@+id/toolbar"
             >
             <LinearLayout
                 android:layout_width="match_parent"
@@ -36,44 +38,73 @@
                     android:id="@+id/animationView"
                     />
 
-                <TextView
+                <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Live Posts"
-                    android:layout_marginTop="10dp"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:gravity="center"
-                    android:textColor="@color/red"
-                    />
+                    app:cardElevation="5dp"
+                    app:cardCornerRadius="15dp"
+                    android:layout_margin="10dp"
+
+                    >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Live Post"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:textColor="@color/red"
+                        android:padding="5dp"
+                        android:background="#30475e"
+                        />
+
+                </androidx.cardview.widget.CardView>
+
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/moneyRV"/>
 
 
-                <LinearLayout
+                <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:id="@+id/layout"
-
+                    app:cardElevation="5dp"
+                    app:cardCornerRadius="15dp"
+                    android:layout_margin="10dp"
                     >
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Archive story"
-                        android:textSize="18sp"
-                        android:textColor="@android:color/tertiary_text_dark"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        />
+                        android:orientation="horizontal"
+                        android:id="@+id/layout"
+
+                        >
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:text="Archive story"
+                            android:textSize="18sp"
+                            android:textColor="@android:color/white"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:padding="5dp"
+                            android:background="#1f4068"
+                            android:textStyle="bold"
+                            />
 
 
 
-                </LinearLayout>
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="match_parent"
                     android:layout_height="0dp"

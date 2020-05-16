@@ -21,7 +21,10 @@
         <activity android:name=".Activity.SeeDonationActivity" />
         <activity android:name=".Activity.DonateMoneyActivity" />
         <activity android:name=".Activity.AdminMainActivity" />
-        <activity android:name=".Activity.OrganizerMainActivity" />
+        <activity android:name=".Activity.OrganizerMainActivity">
+
+
+        </activity>
         <activity android:name=".Activity.UserMainActivity" />
         <activity android:name=".Activity.OrganizationSignUpActivity" />
         <activity android:name=".Activity.UserSignUpActivity" />

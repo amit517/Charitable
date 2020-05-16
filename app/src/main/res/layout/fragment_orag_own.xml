@@ -22,35 +22,50 @@
                 android:id="@+id/animationView"
                 />
 
-            <LinearLayout
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                app:cardElevation="5dp"
+                app:cardCornerRadius="15dp"
+                android:layout_margin="10dp"
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Accessories"
-                    android:textSize="20sp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginLeft="5dp"
-                    android:textColor="@android:color/black"
-                    android:gravity="center"/>
+                    android:orientation="horizontal">
 
-                <!--<Spinner
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/item_type_spinner"
-                    android:entries="@array/currency_array"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:layout_gravity="center"
-                    />
--->
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="Accessories"
+                        android:textSize="18sp"
+                        android:gravity="center"
+                        android:textColor="@color/white"
+                        android:padding="5dp"
+                        android:background="#27496d"
+                        android:textStyle="bold"
+                        />
+
+                    <!--<Spinner
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/item_type_spinner"
+                        android:entries="@array/currency_array"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_gravity="center"
+                        />
+    -->
 
 
-            </LinearLayout>
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+
 
 
 
@@ -61,24 +76,38 @@
                 android:layout_margin="10dp"
                 />
 
-            <LinearLayout
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                app:cardElevation="5dp"
+                app:cardCornerRadius="15dp"
+                android:layout_margin="10dp"
 
-                <TextView
+                >
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Money"
-                    android:textSize="20sp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginLeft="5dp"
-                    android:id="@+id/money_tv"
-                    android:gravity="center"
-                    android:textColor="@android:color/black"
-                    />
+                    android:orientation="horizontal">
 
-            </LinearLayout>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Money"
+                        android:textSize="18sp"
+                        android:id="@+id/money_tv"
+                        android:gravity="center"
+                        android:textColor="@android:color/white"
+                        android:background="#035aa6"
+                        android:padding="5dp"
+                        android:textStyle="bold"
+                        />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+
 
 
 
@@ -90,16 +119,28 @@
                 android:layout_margin="10dp"
                 />
 
-            <TextView
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Transection History"
-                android:textSize="20sp"
-                android:layout_marginTop="5dp"
-                android:layout_marginLeft="5dp"
-                android:gravity="center"
-                android:textColor="@android:color/black"
-                />
+                app:cardElevation="5dp"
+                app:cardCornerRadius="15dp"
+                android:layout_margin="10dp"
+                >
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Transection History"
+                    android:textSize="18sp"
+                    android:gravity="center"
+                    android:textColor="@android:color/white"
+                    android:padding="5dp"
+                    android:background="#30475e"
+                    android:textStyle="bold"
+                    />
+
+            </androidx.cardview.widget.CardView>
+
+
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="0dp"

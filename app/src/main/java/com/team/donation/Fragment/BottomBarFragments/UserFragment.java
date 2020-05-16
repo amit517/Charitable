@@ -24,6 +24,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 import com.team.donation.Activity.AdminMainActivity;
 import com.team.donation.Activity.LoginActivity;
 import com.team.donation.Activity.OrganizerMainActivity;
@@ -95,6 +96,20 @@ public class UserFragment extends Fragment {
                                     binding.nidET.setText(user.getNidNumber());
                                     binding.phoneET.setText(user.getPhoneNumber());
                                     binding.addressET.setText(user.getAddress());
+
+
+                                    String  img_url = user.getProfileImageUrl();
+                                    //String  img_url = "https://image.shutterstock.com/image-photo/mountains-during-sunset-beautiful-natural-600w-407021107.jpg";
+                                    if (img_url!=null){
+                                        Picasso
+                                                .get()
+                                                .load(img_url)
+                                                .resize(150,150)
+                                                .into(binding.profileImage);
+                                    }
+
+
+
                                     break;
                                 case "Organization":
 
@@ -103,6 +118,16 @@ public class UserFragment extends Fragment {
                                     binding.nidET.setText(organization.getRegNumber());
                                     binding.phoneET.setText(organization.getPhoneNumber());
                                     binding.addressET.setText(organization.getAddress());
+
+                                    img_url = organization.getProfileImageUrl();
+                                    //String  img_url = "https://image.shutterstock.com/image-photo/mountains-during-sunset-beautiful-natural-600w-407021107.jpg";
+                                    if (img_url!=null){
+                                        Picasso
+                                                .get()
+                                                .load(img_url)
+                                                .resize(150,150)
+                                                .into(binding.profileImage);
+                                    }
                                     break;
                                 default:
                                     // Amar Mathay Bari Daw :P

@@ -1,6 +1,7 @@
 package com.team.donation.Activity;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
@@ -13,12 +14,14 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,6 +30,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.team.donation.Model.User;
 import com.team.donation.R;
 import com.team.donation.Utils.NetChecker;
@@ -39,7 +43,9 @@ public class UserSignUpActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference;
     private ProgressDialog progressDialog;
-
+    private StorageReference storageReference;
+    private Uri uri;
+    private String profileImageUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +61,14 @@ public class UserSignUpActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
-
+        binding.profileImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                intent.setType("image/*");
+                startActivityForResult(intent,1);
+            }
+        });
         binding.signUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -132,32 +145,50 @@ public class UserSignUpActivity extends AppCompatActivity {
                            final String email,
                            final String password) {
 
+        final StorageReference profileImageRef = storageReference.child("Profile Image").child(String.valueOf(System.currentTimeMillis()));
+        if (uri!=null){
+            profileImageRef.putFile(uri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                    if (task.isSuccessful()){
+                        profileImageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                profileImageUrl = uri.toString();
+                                firebaseAuth.createUserWithEmailAndPassword(email, password)
+                                        .addOnCompleteListener(UserSignUpActivity.this, new OnCompleteListener<AuthResult>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                                if (task.isSuccessful()) {
+                                                    // Sign in success, update UI with the signed-in user's information
+                                                    Log.d("TAG", "createUserWithEmail:success");
+                                                    FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+                                                    assert firebaseUser != null;
+                                                    String uniqueId = firebaseUser.getUid();
+                                                    User user = new User(firstName,lastName,nidNumber,phoneNumber,address,email,profileImageUrl,uniqueId,"user");
+                                                    storeOnDatabase(user);
+                                                } else {
+                                                    // If sign in fails, display a message to the user.
+                                                    Log.w("TAG", "createUserWithEmail:failure", task.getException());
+                                                    Toast.makeText(context, "Authentication failed.",
+                                                            Toast.LENGTH_SHORT).show();
 
-        firebaseAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d("TAG", "createUserWithEmail:success");
-                            FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-                            assert firebaseUser != null;
-                            String uniqueId = firebaseUser.getUid();
-                            User user = new User(firstName,lastName,nidNumber,phoneNumber,address,email,uniqueId,"user");
+                                                }
+                                            }
+                                        });
 
-                            storeOnDatabase(user);
-
-
-
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w("TAG", "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(context, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-
-                        }
+                            }
+                        });
                     }
-                });
+                }
+            });
+
+        }else {
+            Toast.makeText(this, "Please select profile image", Toast.LENGTH_SHORT).show();
+        }
+
+
+
 
 
     }
@@ -205,13 +236,15 @@ public class UserSignUpActivity extends AppCompatActivity {
         context = UserSignUpActivity.this;
         progressDialog = new ProgressDialog(context);
         progressDialog.setMessage("Please wait...");
+        storageReference = FirebaseStorage.getInstance().getReference();
     }
 
-
-
-    private void goToMain() {
-        startActivity(new Intent(context,LoginActivity.class)
-                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK));
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode==1 && resultCode==RESULT_OK){
+            uri = data.getData();
+            binding.profileImage.setImageURI(uri);
+        }
     }
 
 }

@@ -22,64 +22,92 @@
                 app:lottie_autoPlay="true"
                 android:id="@+id/animationView"
                 />
-            <TextView
+
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Money"
-                android:layout_marginTop="10dp"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:gravity="center"
-                />
+                app:cardElevation="5dp"
+                app:cardCornerRadius="15dp"
+                android:layout_margin="10dp"
+
+                >
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Money"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:background="#035aa6"
+                    android:textColor="@color/white"
+                    />
+            </androidx.cardview.widget.CardView>
+
 
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/moneyRV"/>
 
-
-            <LinearLayout
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:id="@+id/layout"
+                app:cardElevation="5dp"
+                app:cardCornerRadius="15dp"
+                android:layout_margin="10dp"
 
                 >
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Accessories"
-                    android:textSize="18sp"
-                    android:textColor="@android:color/black"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="20dp"
-                    />
+                    android:orientation="horizontal"
+                    android:id="@+id/layout"
+                    android:background="#27496d"
+                    >
 
-                <Spinner
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/item_type_spinner"
-                    android:entries="@array/currency_array"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="Accessories"
+                        android:textSize="18sp"
+                        android:textColor="@android:color/white"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="20dp"
+                        android:textStyle="bold"
+                        />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="20dp"
-                    android:padding="5dp"
-                    android:id="@+id/search"
-                    android:src="@drawable/ic_refresh_black_24dp"/>
+                    <Spinner
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/item_type_spinner"
+                        android:entries="@array/currency_array"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:backgroundTint="@color/white"
+                        android:outlineAmbientShadowColor="@color/white"
+                        style="@style/Spinner"
+                        />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="20dp"
+                        android:padding="5dp"
+                        android:id="@+id/search"
+                        android:tint="@color/white"
+                        android:src="@drawable/ic_refresh_black_24dp"/>
 
 
 
-            </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="0dp"

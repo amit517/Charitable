@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -101,6 +102,7 @@ public class MoneyFragment extends Fragment implements MoneySecondAdapter.ClickL
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
                     moneyArrayList.clear();
+                    archiveMoneyArrayList.clear();
                     for (DataSnapshot data:dataSnapshot.getChildren()
                     ) {
 
@@ -163,7 +165,6 @@ public class MoneyFragment extends Fragment implements MoneySecondAdapter.ClickL
         progressDialog.setMessage("Please wait...");
         moneyArrayList = new ArrayList<>();
         archiveMoneyArrayList = new ArrayList<>();
-
     }
 
 
