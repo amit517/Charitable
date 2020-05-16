@@ -31,10 +31,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.team.donation.Activity.SeeDonationActivity;
 import com.team.donation.Adapter.AccAdapter;
 import com.team.donation.Adapter.OwnMoneyAdapter;
+import com.team.donation.Adapter.TransectionAdapter;
 import com.team.donation.Model.Accessories;
 import com.team.donation.Model.Money;
+import com.team.donation.Model.Transection;
 import com.team.donation.R;
 import com.team.donation.Utils.GlobalVariables;
 import com.team.donation.databinding.FragmentOragOwnBinding;
@@ -56,6 +59,8 @@ public class OrgOwnFragment extends Fragment implements AccAdapter.OnDeleteClick
     private ArrayList<Money> moneyArrayList;
     private OwnMoneyAdapter moneyAdapter;
     private AccAdapter adapter;
+    private ArrayList<Transection> transectionArrayList;
+    private TransectionAdapter transectionAdapter;
 
     //private AccessoriesAdapter adapter;
 
@@ -88,6 +93,28 @@ public class OrgOwnFragment extends Fragment implements AccAdapter.OnDeleteClick
         else {
             userMoney();
         }
+
+        Query query= databaseReference.child("Transaction").orderByChild("userId").equalTo(firebaseAuth.getCurrentUser().getUid());
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                if (dataSnapshot.exists()){
+                    transectionArrayList.clear();
+                    for (DataSnapshot data : dataSnapshot.getChildren()){
+                        Transection accessories = data.getValue(Transection.class);
+                        transectionArrayList.add(accessories);
+                    }
+                }
+                transectionAdapter.notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         return binding.getRoot();
     }
@@ -191,6 +218,13 @@ public class OrgOwnFragment extends Fragment implements AccAdapter.OnDeleteClick
         binding.accoriesRV.setLayoutManager(m2LayoutManager);
         binding.accoriesRV.setAdapter(adapter);
 
+        transectionAdapter = new TransectionAdapter(context,transectionArrayList);
+        LinearLayoutManager mLayoutManager3 = new LinearLayoutManager(context);
+        mLayoutManager3.setReverseLayout(true);
+        mLayoutManager3.setStackFromEnd(true);
+        binding.donationRV.setLayoutManager(mLayoutManager3);
+        binding.donationRV.setAdapter(transectionAdapter);
+
     }
 
     private void checkuser() {
@@ -224,7 +258,7 @@ public class OrgOwnFragment extends Fragment implements AccAdapter.OnDeleteClick
         progressDialog.setMessage("Please wait...");
         accessoriesArrayList = new ArrayList<>();
         moneyArrayList = new ArrayList<>();
-
+        transectionArrayList = new ArrayList<>();
     }
 
     @Override

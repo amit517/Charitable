@@ -8,33 +8,18 @@ public class Transection {
     private String uniqueId;
     private String postToken;
     private String transectionDate;
-
+    private String userId;
     public Transection() {
     }
 
-    public Transection(String transectionID, double ammount, String senderName, String uniqueId, String postToken, String transectionDate) {
+    public Transection(String transectionID, double ammount, String senderName, String uniqueId, String postToken, String transectionDate, String userId) {
         this.transectionID = transectionID;
         this.ammount = ammount;
         this.senderName = senderName;
         this.uniqueId = uniqueId;
         this.postToken = postToken;
         this.transectionDate = transectionDate;
-    }
-
-    public Transection(String transectionID, double ammount, String senderName, String uniqueId, String postToken) {
-        this.transectionID = transectionID;
-        this.ammount = ammount;
-        this.senderName = senderName;
-        this.uniqueId = uniqueId;
-        this.postToken = postToken;
-    }
-
-    public String getTransectionDate() {
-        return transectionDate;
-    }
-
-    public void setTransectionDate(String transectionDate) {
-        this.transectionDate = transectionDate;
+        this.userId = userId;
     }
 
     public String getTransectionID() {
@@ -75,5 +60,21 @@ public class Transection {
 
     public void setPostToken(String postToken) {
         this.postToken = postToken;
+    }
+
+    public String getTransectionDate() {
+        return transectionDate;
+    }
+
+    public void setTransectionDate(String transectionDate) {
+        this.transectionDate = transectionDate;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

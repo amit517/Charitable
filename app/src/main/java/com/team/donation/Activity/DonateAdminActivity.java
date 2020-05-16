@@ -35,7 +35,6 @@ public class DonateAdminActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding= DataBindingUtil.setContentView(this,R.layout.activity_donate_admin);
-
         init();
 
         binding.copy.setOnClickListener(new View.OnClickListener() {
@@ -61,7 +60,7 @@ public class DonateAdminActivity extends AppCompatActivity {
                     String uniqueId = reference.push().getKey();
                     String date = DateTimeHelper.getDate();
 
-                    Transection transection = new Transection(binding.bkashTransectionNo.getText().toString(), amount, binding.name.getText().toString(), uniqueId, "null", date);
+                    Transection transection = new Transection(binding.bkashTransectionNo.getText().toString(), amount, binding.name.getText().toString(), uniqueId, "null", date,firebaseAuth.getCurrentUser().getUid());
                     reference.child(uniqueId).setValue(transection).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {

@@ -249,20 +249,22 @@ public class AllPostFragment extends Fragment implements MoneySecondAdapter.Clic
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-
                             AlertDialog.Builder builder = new AlertDialog.Builder(context);
                             builder.setTitle("Success");
                             builder.setMessage("Successfully Deleted");
                             builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
-                                    adapter.clear(position);
-                                    adapter.notifyDataSetChanged();
+                                    try {
+                                        adapter.clear(position);
+                                        adapter.notifyDataSetChanged();
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
                                 }
                             })
                                     .setCancelable(false);
                             AlertDialog alert = builder.create();
                             alert.show();
-
                             Toast.makeText(context, "Deleted", Toast.LENGTH_SHORT).show();
                         }
                     }
