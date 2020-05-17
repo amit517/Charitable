@@ -56,11 +56,11 @@ public class DonateAdminActivity extends AppCompatActivity {
                 if (NetChecker.isNetworkAvailable(DonateAdminActivity.this)) {
                     progressDialog.show();
                     final double amount = Double.parseDouble(binding.moneyAmount.getText().toString());
-                    DatabaseReference reference = databaseReference.child("Admin Donation");
+                    DatabaseReference reference = databaseReference.child("Transaction");
                     String uniqueId = reference.push().getKey();
                     String date = DateTimeHelper.getDate();
 
-                    Transection transection = new Transection(binding.bkashTransectionNo.getText().toString(), amount, binding.name.getText().toString(), uniqueId, "null", date,firebaseAuth.getCurrentUser().getUid());
+                    Transection transection = new Transection(binding.bkashTransectionNo.getText().toString(), amount, binding.name.getText().toString(), uniqueId, "null", date,firebaseAuth.getCurrentUser().getUid(),"Admin");
                     reference.child(uniqueId).setValue(transection).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {

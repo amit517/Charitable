@@ -98,7 +98,6 @@ public class OrgOwnFragment extends Fragment implements AccAdapter.OnDeleteClick
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
                 if (dataSnapshot.exists()){
                     transectionArrayList.clear();
                     for (DataSnapshot data : dataSnapshot.getChildren()){
@@ -107,7 +106,6 @@ public class OrgOwnFragment extends Fragment implements AccAdapter.OnDeleteClick
                     }
                 }
                 transectionAdapter.notifyDataSetChanged();
-
             }
 
             @Override
@@ -218,7 +216,7 @@ public class OrgOwnFragment extends Fragment implements AccAdapter.OnDeleteClick
         binding.accoriesRV.setLayoutManager(m2LayoutManager);
         binding.accoriesRV.setAdapter(adapter);
 
-        transectionAdapter = new TransectionAdapter(context,transectionArrayList);
+        transectionAdapter = new TransectionAdapter(context,transectionArrayList,"own");
         LinearLayoutManager mLayoutManager3 = new LinearLayoutManager(context);
         mLayoutManager3.setReverseLayout(true);
         mLayoutManager3.setStackFromEnd(true);

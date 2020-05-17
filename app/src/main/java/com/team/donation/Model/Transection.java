@@ -9,6 +9,7 @@ public class Transection {
     private String postToken;
     private String transectionDate;
     private String userId;
+    private String sendTo;
     public Transection() {
     }
 
@@ -20,6 +21,17 @@ public class Transection {
         this.postToken = postToken;
         this.transectionDate = transectionDate;
         this.userId = userId;
+    }
+
+    public Transection(String transectionID, double ammount, String senderName, String uniqueId, String postToken, String transectionDate, String userId, String sendTo) {
+        this.transectionID = transectionID;
+        this.ammount = ammount;
+        this.senderName = senderName;
+        this.uniqueId = uniqueId;
+        this.postToken = postToken;
+        this.transectionDate = transectionDate;
+        this.userId = userId;
+        this.sendTo = sendTo;
     }
 
     public String getTransectionID() {
@@ -76,5 +88,13 @@ public class Transection {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getSendTo() {
+        return sendTo;
+    }
+
+    public void setSendTo(String sendTo) {
+        this.sendTo = sendTo;
     }
 }

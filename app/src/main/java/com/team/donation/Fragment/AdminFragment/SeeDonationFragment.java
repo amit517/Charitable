@@ -58,8 +58,7 @@ public class SeeDonationFragment extends Fragment {
         init();
         configureRV();
 
-
-        Query query= databaseReference.child("Admin Donation");
+        Query query= databaseReference.child("Transaction").orderByChild("sendTo").equalTo("Admin");
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

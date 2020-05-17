@@ -79,7 +79,7 @@ public class DonateMoneyActivity extends AppCompatActivity {
                         String uniqueId = reference.push().getKey();
                         String date = DateTimeHelper.getDate();
 
-                        Transection transection = new Transection(binding.bkashTransectionNo.getText().toString(),amount,binding.name.getText().toString(),uniqueId,money.getUniqueID(),date,firebaseAuth.getCurrentUser().getUid());
+                        Transection transection = new Transection(binding.bkashTransectionNo.getText().toString(),amount,binding.name.getText().toString(),uniqueId,money.getUniqueID(),date,firebaseAuth.getCurrentUser().getUid(),money.getOrganizationName());
                         reference.child(uniqueId).setValue(transection).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) { // Transaction added to the database

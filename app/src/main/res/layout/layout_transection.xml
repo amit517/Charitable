@@ -79,8 +79,17 @@
                     android:textSize="15sp"
                     android:textColor="@color/black_alfa_70"/>
 
-            </LinearLayout>
 
+            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Send to"
+                android:id="@+id/sendTo"
+                android:textSize="15sp"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/black_alfa_70"
+                android:visibility="gone"/>
 
         </LinearLayout>
 

@@ -19,10 +19,17 @@ public class TransectionAdapter extends RecyclerView.Adapter<TransectionAdapter.
 
     private Context context;
     private ArrayList<Transection> transectionArrayList;
+    private String type = "null";
 
     public TransectionAdapter(Context context, ArrayList<Transection> transectionArrayList) {
         this.context = context;
         this.transectionArrayList = transectionArrayList;
+    }
+
+    public TransectionAdapter(Context context, ArrayList<Transection> transectionArrayList, String type) {
+        this.context = context;
+        this.transectionArrayList = transectionArrayList;
+        this.type = type;
     }
 
     @NonNull
@@ -41,9 +48,14 @@ public class TransectionAdapter extends RecyclerView.Adapter<TransectionAdapter.
 
         String amount = String.valueOf(transection.getAmmount());
         holder.transectionAmount.setText("Amount : "+amount);
-        holder.name.setText("Sender Name : "+transection.getSenderName());
+        holder.name.setText("Name : "+transection.getSenderName());
         holder.transectionID.setText("Transection ID : "+transection.getTransectionID());
         holder.trandate.setText(transection.getTransectionDate());
+
+        if (type.equals("own")){
+            holder.sendTo.setVisibility(View.VISIBLE);
+            holder.sendTo.setText("Send to : "+transection.getSendTo());
+        }
 
     }
 
@@ -54,7 +66,7 @@ public class TransectionAdapter extends RecyclerView.Adapter<TransectionAdapter.
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView transectionAmount,trandate,transectionID,name;
+        TextView transectionAmount,trandate,transectionID,name,sendTo;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -62,6 +74,7 @@ public class TransectionAdapter extends RecyclerView.Adapter<TransectionAdapter.
             trandate = itemView.findViewById(R.id.trandate);
             transectionID = itemView.findViewById(R.id.transectionID);
             name = itemView.findViewById(R.id.name);
+            sendTo = itemView.findViewById(R.id.sendTo);
 
         }
     }
