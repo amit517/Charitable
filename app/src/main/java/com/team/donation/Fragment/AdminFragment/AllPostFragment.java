@@ -42,7 +42,7 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AllPostFragment extends Fragment implements MoneySecondAdapter.ClickListener {
+public class AllPostFragment extends Fragment implements MoneySecondAdapter.ClickListener,AccessoriesAdapter.AccClickListener {
 
     private FragmentAllPostBinding binding;
     private Context context;
@@ -153,7 +153,7 @@ public class AllPostFragment extends Fragment implements MoneySecondAdapter.Clic
         binding.moneyRV.setAdapter(adapter);
 
 
-        accAdapter = new AccessoriesAdapter(context, accessoriesArrayList);
+        accAdapter = new AccessoriesAdapter(context, accessoriesArrayList,"admin",this);
         binding.accRV.setLayoutManager(m2LayoutManager);
         binding.accRV.setAdapter(accAdapter);
 
@@ -257,6 +257,58 @@ public class AllPostFragment extends Fragment implements MoneySecondAdapter.Clic
                                     try {
                                         adapter.clear(position);
                                         adapter.notifyDataSetChanged();
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            })
+                                    .setCancelable(false);
+                            AlertDialog alert = builder.create();
+                            alert.show();
+                            Toast.makeText(context, "Deleted", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+
+                    }
+                });
+            }
+        })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .setCancelable(false);
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    @Override
+    public void OnAccDeleteClicked(final int position) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("Delete!");
+        builder.setMessage("Are you sure you want to delete?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                String key = accessoriesArrayList.get(position).getUniqueID();
+                Log.d("TAG", "onClick: "+key);
+                databaseReference.child("Accessories").child(key).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                            builder.setTitle("Success");
+                            builder.setMessage("Successfully Deleted");
+                            builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    try {
+                                        accAdapter.clear(position);
+                                        accAdapter.notifyDataSetChanged();
                                     } catch (Exception e) {
                                         e.printStackTrace();
                                     }

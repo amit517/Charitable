@@ -24,6 +24,7 @@ import com.team.donation.Model.Accessories;
 import com.team.donation.Model.Money;
 import com.team.donation.R;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 
@@ -33,11 +34,22 @@ public class AccessoriesAdapter extends RecyclerView.Adapter<AccessoriesAdapter.
 
     private Context context;
     private ArrayList<Accessories> accessoriesArrayList;
+    private String type = "null";
+    private AccClickListener listener;
+
+    public AccessoriesAdapter(Context context, ArrayList<Accessories> accessoriesArrayList, String type, AccClickListener listener) {
+        this.context = context;
+        this.accessoriesArrayList = accessoriesArrayList;
+        this.type = type;
+        this.listener = listener;
+    }
 
     public AccessoriesAdapter(Context context, ArrayList<Accessories> accessoriesArrayList) {
         this.context = context;
         this.accessoriesArrayList = accessoriesArrayList;
     }
+
+
 
     @NonNull
     @Override
@@ -48,7 +60,7 @@ public class AccessoriesAdapter extends RecyclerView.Adapter<AccessoriesAdapter.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
 
 
 
@@ -103,6 +115,16 @@ public class AccessoriesAdapter extends RecyclerView.Adapter<AccessoriesAdapter.
             holder.moneyRoot.setBackgroundColor(ContextCompat.getColor(context, R.color.light_green));
         }
 
+        if (type.equals("admin")){
+            holder.acc_delete_buttondelete.setVisibility(View.VISIBLE);
+            holder.acc_delete_buttondelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.OnAccDeleteClicked(position);
+                }
+            });
+        }
+
         /*holder.report.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -133,7 +155,8 @@ public class AccessoriesAdapter extends RecyclerView.Adapter<AccessoriesAdapter.
         ImageButton callBtn;
         ImageView accProductimage,report;
         CardView moneyRoot;
-
+        Button acc_delete_buttondelete;
+        private WeakReference<AccClickListener> listenerRef;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -148,10 +171,21 @@ public class AccessoriesAdapter extends RecyclerView.Adapter<AccessoriesAdapter.
             accProductimage = itemView.findViewById(R.id.accProductimage);
             callBtn = itemView.findViewById(R.id.callBtn);
             moneyRoot = itemView.findViewById(R.id.moneyRoot);
+            acc_delete_buttondelete = itemView.findViewById(R.id.acc_delete_buttondelete);
             //report = itemView.findViewById(R.id.report);
+            listenerRef = new WeakReference<>(listener);
 
         }
 
 
+    }
+
+    public interface AccClickListener {
+        void OnAccDeleteClicked(int position);
+    }
+
+    public void clear(int position) {
+        accessoriesArrayList.remove(position);
+        notifyItemRemoved(position);
     }
 }

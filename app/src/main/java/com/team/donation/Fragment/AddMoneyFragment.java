@@ -155,7 +155,7 @@ public class AddMoneyFragment extends Fragment {
 
                     }else {
                         progressDialog.dismiss();
-                        Toast.makeText(context, "Please select Product image", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Please select an image", Toast.LENGTH_SHORT).show();
                     }
                 }
                 else {
