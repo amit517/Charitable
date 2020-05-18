@@ -95,4 +95,10 @@ public class AccAdapter extends RecyclerView.Adapter<AccAdapter.ViewHolder> {
         notifyItemRemoved(position);
     }
 
+    public void clear() {
+        int size = accessoriesArrayList.size();
+        accessoriesArrayList.clear();
+        notifyItemRangeRemoved(0, size);
+    }
+
 }

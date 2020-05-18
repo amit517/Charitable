@@ -4,7 +4,7 @@
         android:icon="@drawable/ic_attach_money_black_24dp"
         android:title="Money"
         android:checked="true"
-        android:iconTint="@color/home"/>
+        android:iconTint="#562349"/>
 
     <item
         android:id="@+id/accessories"
@@ -27,6 +27,6 @@
         android:id="@+id/about"
         android:icon="@drawable/ic_info_black_24dp"
         android:title="About"
-        android:iconTint="@color/colorPrimary"/>
+        android:iconTint="#c1a57b"/>
 
 </menu>

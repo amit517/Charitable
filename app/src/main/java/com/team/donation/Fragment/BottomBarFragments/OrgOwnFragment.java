@@ -237,7 +237,7 @@ public class OrgOwnFragment extends Fragment implements AccAdapter.OnDeleteClick
             case "User":
             case "Admin":
 
-                binding.moneyTv.setVisibility(View.GONE);
+                binding.moneyCV.setVisibility(View.GONE);
                 binding.moneyRV.setVisibility(View.GONE);
                 break;
 

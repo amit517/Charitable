@@ -188,4 +188,10 @@ public class AccessoriesAdapter extends RecyclerView.Adapter<AccessoriesAdapter.
         accessoriesArrayList.remove(position);
         notifyItemRemoved(position);
     }
+
+    public void clear() {
+        int size = accessoriesArrayList.size();
+        accessoriesArrayList.clear();
+        notifyItemRangeRemoved(0, size);
+    }
 }
