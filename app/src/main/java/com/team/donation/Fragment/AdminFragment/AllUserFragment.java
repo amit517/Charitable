@@ -196,14 +196,11 @@ public class AllUserFragment extends Fragment implements AccAdapter.OnDeleteClic
                         deleteAcc(userId);
                         //delteAccount(userId);
                         DatabaseReference reference = databaseReference.child("users").child(userId).child("isActive");
-
                         reference.setValue("Banned").addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
                                 Toast.makeText(context, "Account Successfully Banned", Toast.LENGTH_SHORT).show();
-
                                 accAdapter.notifyItemChanged(position);
-
                             }
                         });
 

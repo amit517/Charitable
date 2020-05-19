@@ -24,10 +24,22 @@ public class PushFragment {
         if (fm.findFragmentByTag ( tag ) == null) { // No fragment in backStack with same tag..
             ft.replace ( R.id.frame_layout, fragment, tag );
             ft.addToBackStack ( tag );
+            ft.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
             ft.commit ();
         }
         else {
-            ft.replace(R.id.frame_layout, fragment, tag).commit();
+            ft.replace(R.id.frame_layout, fragment, tag).setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit).commit();
         }
+    }
+
+    public static void reloadFragment(Context context,String tag){
+        Fragment frg = null;
+        frg = ((FragmentActivity)context).getSupportFragmentManager().findFragmentByTag(tag);
+        final FragmentTransaction ft = ((FragmentActivity)context).getSupportFragmentManager().beginTransaction();
+        ft.detach(frg);
+        ft.attach(frg);
+        ft.setCustomAnimations(R.animator.slide_in_left,
+                R.animator.slide_out_right, 0, 0);
+        ft.commit();
     }
 }

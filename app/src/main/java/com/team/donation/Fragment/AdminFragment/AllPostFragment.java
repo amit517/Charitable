@@ -35,6 +35,7 @@ import com.team.donation.Model.Accessories;
 import com.team.donation.Model.Money;
 import com.team.donation.Model.Transection;
 import com.team.donation.R;
+import com.team.donation.Utils.PushFragment;
 import com.team.donation.databinding.FragmentAllPostBinding;
 
 import java.util.ArrayList;
@@ -252,22 +253,7 @@ public class AllPostFragment extends Fragment implements MoneySecondAdapter.Clic
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                            builder.setTitle("Success");
-                            builder.setMessage("Successfully Deleted");
-                            builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    try {
-                                        adapter.clear(position);
-                                        adapter.notifyDataSetChanged();
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                            })
-                                    .setCancelable(false);
-                            AlertDialog alert = builder.create();
-                            alert.show();
+                            PushFragment.reloadFragment(context,"AllPost");
                             Toast.makeText(context, "Deleted", Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -304,22 +290,7 @@ public class AllPostFragment extends Fragment implements MoneySecondAdapter.Clic
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                            builder.setTitle("Success");
-                            builder.setMessage("Successfully Deleted");
-                            builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    try {
-                                        accAdapter.clear(position);
-                                        accAdapter.notifyDataSetChanged();
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                            })
-                                    .setCancelable(false);
-                            AlertDialog alert = builder.create();
-                            alert.show();
+                            PushFragment.reloadFragment(context,"AllPost");
                             Toast.makeText(context, "Deleted", Toast.LENGTH_SHORT).show();
                         }
                     }

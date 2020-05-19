@@ -4,12 +4,14 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -40,6 +42,7 @@ import com.team.donation.Model.Money;
 import com.team.donation.Model.Transection;
 import com.team.donation.R;
 import com.team.donation.Utils.GlobalVariables;
+import com.team.donation.Utils.PushFragment;
 import com.team.donation.databinding.FragmentOragOwnBinding;
 
 import java.util.ArrayList;
@@ -268,20 +271,7 @@ public class OrgOwnFragment extends Fragment implements AccAdapter.OnDeleteClick
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()){
-
-                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                    builder.setTitle("Success");
-                    builder.setMessage("Successfully Deleted. Thanks for your collaboration");
-                    builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            adapter.clear(position);
-                            adapter.notifyDataSetChanged();
-                        }
-                    })
-                            .setCancelable(false);
-                    AlertDialog alert = builder.create();
-                    alert.show();
-
+                    PushFragment.reloadFragment(context,"own");
                     Toast.makeText(context, "Deleted", Toast.LENGTH_SHORT).show();
                 }
             }
