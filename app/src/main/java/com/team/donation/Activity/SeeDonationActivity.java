@@ -9,6 +9,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -44,11 +45,18 @@ public class SeeDonationActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this,R.layout.activity_see_donation);
 
         init();
+
+
         Intent intent = getIntent();
         String moneyToken = intent.getStringExtra("token");
 
         configureRV();
-
+        binding.toolBar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         Query query= databaseReference.child("Transaction").orderByChild("postToken").equalTo(moneyToken);
         query.addValueEventListener(new ValueEventListener() {
@@ -91,6 +99,7 @@ public class SeeDonationActivity extends AppCompatActivity {
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Please wait...");
         transectionArrayList = new ArrayList<>();
-
+        setSupportActionBar(binding.toolBar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 }

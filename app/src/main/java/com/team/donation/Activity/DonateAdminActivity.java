@@ -11,11 +11,13 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -48,6 +50,12 @@ public class DonateAdminActivity extends AppCompatActivity {
             }
         });
 
+        binding.toolBar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         binding.addMoneyToDatabase.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,6 +108,9 @@ public class DonateAdminActivity extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Please wait...");
+        setSupportActionBar(binding.toolBar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
     }
 }

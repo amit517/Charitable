@@ -35,7 +35,7 @@
                         android:text="Want to give"
                         android:id="@+id/postType"
                         android:textStyle="bold"
-                        android:textSize="23dp"
+                        android:textSize="20sp"
                         android:padding="5dp"
                         android:textColor="@color/black_alfa_70"
 
@@ -97,7 +97,7 @@
                         android:textStyle="italic"
                         android:id="@+id/creatorName"
                         android:padding="5dp"
-                        android:textColor="@color/black_alfa_70"
+                        android:textColor="@color/gray2"
                         />
 
                     <TextView
@@ -116,7 +116,8 @@
                     android:text="Description"
                     android:id="@+id/productDescription"
                     android:padding="5dp"
-                    android:textColor="@color/black_alfa_70"/>
+                    android:textSize="15sp"
+                    android:textColor="@color/common_google_signin_btn_text_dark_focused"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -162,7 +163,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Location"
-                        android:textColor="#000"
+                        android:textColor="@color/gray2"
                         android:padding="5dp"
                         />
 

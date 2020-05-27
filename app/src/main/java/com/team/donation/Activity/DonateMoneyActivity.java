@@ -52,7 +52,12 @@ public class DonateMoneyActivity extends AppCompatActivity {
         init();
         getMoneyObject();
 
-
+        binding.toolBar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
         binding.copy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -201,7 +206,8 @@ public class DonateMoneyActivity extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Please wait...");
-
+        setSupportActionBar(binding.toolBar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     private void getMoneyObject() {

@@ -97,7 +97,10 @@ public class AccessoriesFragment extends Fragment {
         binding.itemTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                adapter.clear();
+                Log.d("TAG", "onItemSelected: "+binding.itemTypeSpinner.getSelectedItem().toString());
+                if (!binding.itemTypeSpinner.getSelectedItem().toString().equals("Select One")){
+                    adapter.clear();
+                }
                 Query query= databaseReference.child("Accessories").orderByChild("productType").equalTo(binding.itemTypeSpinner.getSelectedItem().toString());
                 Log.d("TAG", "onItemSelected: "+binding.itemTypeSpinner.getSelectedItem().toString());
 

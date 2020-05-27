@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activity.DonateAdminActivity"></activity>
+        <activity android:name=".Activity.DonateAdminActivity"
+            android:theme="@style/ToolBarTheme"></activity>
         <activity android:name=".Activity.SplashActivity"
             android:theme="@style/Theme.Design.NoActionBar">
             <intent-filter>
@@ -18,8 +19,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.SeeDonationActivity" />
-        <activity android:name=".Activity.DonateMoneyActivity" />
+        <activity android:name=".Activity.SeeDonationActivity"
+            android:theme="@style/ToolBarTheme"></activity>
+        <activity android:name=".Activity.DonateMoneyActivity"
+            android:theme="@style/ToolBarTheme">
+        </activity>
         <activity android:name=".Activity.AdminMainActivity" />
         <activity android:name=".Activity.OrganizerMainActivity">
 

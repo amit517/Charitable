@@ -100,7 +100,9 @@ public class AllPostFragment extends Fragment implements MoneySecondAdapter.Clic
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                accAdapter.clear();
+                if (!binding.itemTypeSpinner.getSelectedItem().toString().equals("Select One")){
+                    adapter.clear();
+                }
 
                 Query query = databaseReference.child("Accessories").orderByChild("productType").equalTo(binding.itemTypeSpinner.getSelectedItem().toString());
                 Log.d("TAG", "onItemSelected: " + binding.itemTypeSpinner.getSelectedItem().toString());

@@ -105,9 +105,20 @@
             </RadioGroup>
 
 
-
-
             <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="24dp"
+                android:text="Sign In"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:id="@+id/btn_login"
+                android:padding="16dp"
+                style="@style/Widget.MaterialComponents.FloatingActionButton"
+                android:backgroundTint="@color/colorPrimary"/>
+
+            <!--<Button
                 android:id="@+id/btn_login"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -117,7 +128,7 @@
                 android:textAllCaps="false"
                 android:text="Sign In"
 
-                />
+                />-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
