@@ -54,32 +54,6 @@ public class OrganizerMainActivity extends AppCompatActivity {
         databaseReference = FirebaseDatabase.getInstance().getReference();
         firebaseAuth = FirebaseAuth.getInstance();
 
-
-        checkIfActive(new firebaseCallBack() {
-            @Override
-            public void Onresult(String user) {
-
-                if (!user.equals("Active")) {
-                    binding.frameLayout.setVisibility(View.GONE);
-                    AlertDialog.Builder builder = new AlertDialog.Builder(OrganizerMainActivity.this, android.R.style.Theme_Black_NoTitleBar_Fullscreen);
-                    builder.setTitle("Unauthorized");
-                    builder.setIcon(R.drawable.ic_error_outline_black_24dp);
-                    builder.setMessage("Your account has been banned for breaking the policy.");
-                    builder.setNegativeButton("Logout", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            Logout.logout(OrganizerMainActivity.this);
-                        }
-                    })
-                            .setCancelable(false);
-                    AlertDialog alert = builder.create();
-                    alert.show();
-
-                }
-
-            }
-        });
-
-
         checkUser(new firebaseCallBack() {
             @Override
             public void Onresult(String user) {
@@ -102,8 +76,35 @@ public class OrganizerMainActivity extends AppCompatActivity {
 
                 }
 
+                else {
+                    checkIfActive(new firebaseCallBack() {
+                        @Override
+                        public void Onresult(String user) {
+
+                            if (!user.equals("Active")) {
+                                binding.frameLayout.setVisibility(View.GONE);
+                                AlertDialog.Builder builder = new AlertDialog.Builder(OrganizerMainActivity.this, android.R.style.Theme_Black_NoTitleBar_Fullscreen);
+                                builder.setTitle("Unauthorized");
+                                builder.setIcon(R.drawable.ic_error_outline_black_24dp);
+                                builder.setMessage("Your account has been banned for breaking the policy.");
+                                builder.setNegativeButton("Logout", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        Logout.logout(OrganizerMainActivity.this);
+                                    }
+                                })
+                                        .setCancelable(false);
+                                AlertDialog alert = builder.create();
+                                alert.show();
+
+                            }
+
+                        }
+                    });
+                }
+
             }
         });
+
 
 
         PushFragment.replaceFragment(context, new MoneyFragment(), "money");
