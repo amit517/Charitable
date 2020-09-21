@@ -12,15 +12,15 @@ Admin can check all posts. Admin has the ablity to remove a user / organization 
 * etc... 
 
 ## Screenshots
-** Authentication **
+**Authentication**
 <br>
 <img src="./1.png" height ="500"> <img src="./16.png" height ="500"> <br> <br>
-** User Panel **
+**User Panel**
 <br>
 <img src="./3.png" height ="500"><img src="./4.png" height ="500"> <img src="./5.png" height ="500"><br>
 <img src="./11.png" height ="500"><img src="./12.png" height ="500"><br>
 
 <img src="./6.png" height ="500"><img src="./15.png" height ="500"><br><img src="./8.png" height ="500"><img src="./13.png" height ="500"><br>
-** Admin Panel **
+**Admin Panel**
 <br>
 <img src="./17.png" height ="500"><img src="./18.png" height ="500"> <img src="./19.png" height ="500"><br>
